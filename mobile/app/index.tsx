@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
+import { Link } from "expo-router";
 
 const index = () => {
   return (
@@ -59,8 +60,15 @@ const index = () => {
         />
       </View>
       <TouchableOpacity style={styles.loginBtn}>
-        <Text style={styles.LoginText}>Login</Text>
+        <Text style={styles.logintextbtn}>Login</Text>
       </TouchableOpacity>
+
+      <View style={styles.registercontainer}>
+        <Text style={styles.registertext}>Don't have an Account?</Text>
+        <Link href="/register">
+        <Text>register</Text>
+        </Link>
+      </View>
     </View>
   );
 };
@@ -129,8 +137,27 @@ const styles = StyleSheet.create({
   password: {},
 
   loginBtn: {
-    borderBlockColor: "ffff",
+    backgroundColor: "black",
+    marginHorizontal: 100,
+    marginTop: 30,
+    borderRadius: 25,
+    paddingVertical: 10,
+    alignItems: "center",
+    elevation: 5,
   },
+  logintextbtn: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "bold",
+
+  },
+  registercontainer: {
+    
+  },
+  registertext: {
+
+  },
+
 });
 
 export default index;
