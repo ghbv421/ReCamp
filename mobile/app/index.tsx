@@ -1,20 +1,20 @@
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  Image, 
-  TextInput, 
-  TouchableOpacity, 
-  ImageBackground 
-} from "react-native";
 import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ImageBackground,
+} from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
 import { Link } from "expo-router";
 
 const index = () => {
   return (
     <ImageBackground
-      source={require("../assets/images/bg.png")}  // 👈 local background
+      source={require("../assets/images/bg.png")}
       style={styles.background}
     >
       <View style={styles.container}>
@@ -81,13 +81,14 @@ const index = () => {
 const styles = StyleSheet.create({
   background: {
     flex: 1,
-    resizeMode: "cover", // makes bg.png cover full screen
+    resizeMode: "cover",
   },
   container: {
     flex: 1,
-    
   },
-  imagecontainers: {},
+  imagecontainers: {
+    // blank
+  }, 
   topImage: {
     width: 131,
     height: 131,
@@ -95,7 +96,9 @@ const styles = StyleSheet.create({
     marginTop: 100,
     justifyContent: "center",
   },
-  Logincontainer: {},
+  Logincontainer: {
+    // blank
+  },
   LoginText: {
     textAlign: "center",
     marginTop: 25,
@@ -112,10 +115,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     color: "#f3b676ff",
   },
-  emailAddressIcon: {},
+  emailAddressIcon: {
+    // blank
+  },
   emailAddress: {
     flex: 1,
     marginLeft: 10,
+  },
+  passwordcontainer: {
+    // blank
   },
   passwordText: {
     fontSize: 25,
@@ -135,8 +143,9 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 10,
   },
-  passwordcontainer: {},
-  passwordIcon: {},
+  passwordIcon: {
+    // blank
+  },
   password: {
     flex: 1,
     marginLeft: 10,

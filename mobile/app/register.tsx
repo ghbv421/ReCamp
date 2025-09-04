@@ -71,7 +71,7 @@ const register = () => {
       </View>
 
       <View style={styles.phonenumbercontainer}>
-        <Text style={styles.phonenumber}> Phone Number </Text>
+        <Text style={styles.phonenumberText}> Phone Number </Text>
       </View>
       <View style={styles.inputcontainer}>
         <FontAwesome
@@ -170,6 +170,10 @@ const styles = StyleSheet.create({
 
   emailAddress: {},
 
+  passwordcontainer: {
+    //
+  },
+
   passwordText: {
     fontSize: 25,
     fontWeight: "500",
@@ -186,11 +190,18 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     paddingVertical: 12,
   },
-  passwordcontainer: {},
 
-  passwordIcon: {},
-  password: {},
+  passwordIcon: {
+    //
+  },
+  password: {
+    //
+  },
 
+  phonenumbercontainer: {
+    //
+  },
+  
   phonenumberText: {
     fontSize: 25,
     fontWeight: "500",
@@ -198,10 +209,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
   },
 
-  phonenumbercontainer: {},
-
-  phoneIcon: {},
-  phonenumber: {},
+  phoneIcon: {
+    //
+  },
+  phonenumber: {
+    //
+  },
 
   addresscontainer: {
     marginTop: 5,
