@@ -62,6 +62,11 @@ const index = () => {
             secureTextEntry={true}
           />
         </View>
+                <View style={styles.forgetpasscontainer}>
+          <Link href="/forgotpassword">
+            <Text style={styles.passwordlink}>Forget Password?</Text>
+          </Link>
+        </View>
 
         <TouchableOpacity style={styles.loginBtn}>
           <Text style={styles.logintextbtn}>Login</Text>
@@ -150,6 +155,17 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10,
   },
+
+  forgetpasscontainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 1,
+  },
+
+  passwordlink: {
+    color: "#187bcd",
+  },
+
   loginBtn: {
     backgroundColor: "#c7a08bff",
     marginHorizontal: 100,

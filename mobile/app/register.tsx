@@ -5,6 +5,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  ImageBackground
 } from "react-native";
 import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
@@ -12,9 +13,13 @@ import { Link } from "expo-router";
 
 const register = () => {
   return (
+    <ImageBackground
+        source={require("../assets/images/bg.png")}
+        style={styles.background}
+        >
     <View style={styles.container}>
       <View style={styles.Registercontainer}>
-        <Text style={styles.RegisterText}> Register </Text>
+        <Text style={styles.RegisterText}> Registration </Text>
       </View>
 
       <View style={styles.fullnamecontainer}>
@@ -94,28 +99,31 @@ const register = () => {
           color="9A9A9A"
           marginLeft="10"
         ></FontAwesome>
-        <TextInput
-          style={styles.Address}
+        <TextInput style={styles.Address}
           placeholder="address"
-          keyboardType="default"
-        />
+          keyboardType="default"/>
       </View>
 
       <TouchableOpacity style={styles.RegisterBtn}>
-        <Text style={styles.RegisterText}>Register</Text>
+        <Text style={styles.RegisterBtnText}>Register</Text>
       </TouchableOpacity>
 
-      <View style={styles.Registercontainer}>
-        <Text style={styles.RegisterText}>Already have an Account?</Text>
-        <Link href="/register">
-          <Text>Login</Text>
+      <View style={styles.HaveAcccontainer}>
+        <Text style={styles.HaveAccText}>Already have an Account?</Text>
+        <Link href="/">
+          <Text style={styles.HaveAccTextlink}> Login</Text>
         </Link>
       </View>
     </View>
+  </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: "cover",
+  },
   container: {
     flex: 1,
   },
@@ -137,7 +145,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 25,
     fontSize: 32,
-    fontWeight: "500",
+    fontWeight: "700",
+    fontStyle: "normal"
   },
 
   fullnamecontainer: {
@@ -227,24 +236,42 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
   },
 
-  Address: {},
+  Address: {
+    //
+  },
 
   RegisterBtn: {
-    backgroundColor: "#D9D9D9",
+    backgroundColor: "#df9f9fff",
     marginHorizontal: 100,
-    marginTop: 30,
+    marginTop: 20,
     borderRadius: 25,
     paddingVertical: 10,
     alignItems: "center",
     elevation: 5,
   },
-  logintextbtn: {
+
+  RegisterBtnText:{
     color: "white",
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: "bold",
   },
-  logincontainer: {},
-  logintext: {},
+
+  HaveAcccontainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 10,
+  },
+
+  HaveAccText:{
+    //
+  },
+
+  HaveAccTextlink: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#187bcd",
+},
+
 });
 
 export default register;

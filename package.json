@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "react-native-global-props": "^1.1.5"
+  },
+  "devDependencies": {
+    "@types/react-native-global-props": "^1.1.6"
+  }
+}
