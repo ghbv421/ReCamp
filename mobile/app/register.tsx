@@ -19,7 +19,7 @@ const register = () => {
         >
     <View style={styles.container}>
       <View style={styles.Registercontainer}>
-        <Text style={styles.RegisterText}> Registration </Text>
+        <Text style={styles.RegisterText}> REGISTRATION </Text>
       </View>
 
       <View style={styles.fullnamecontainer}>
@@ -40,7 +40,7 @@ const register = () => {
       </View>
 
       <View style={styles.emailcontainer}>
-        <Text style={styles.emailText}> Email </Text>
+        <Text style={styles.fullnameText}> Email </Text>
       </View>
       <View style={styles.inputcontainer}>
         <FontAwesome
@@ -58,7 +58,7 @@ const register = () => {
       </View>
 
       <View style={styles.passwordcontainer}>
-        <Text style={styles.passwordText}> Password </Text>
+        <Text style={styles.fullnameText}> Password </Text>
       </View>
       <View style={styles.inputcontainer}>
         <FontAwesome
@@ -76,7 +76,7 @@ const register = () => {
       </View>
 
       <View style={styles.phonenumbercontainer}>
-        <Text style={styles.phonenumberText}> Phone Number </Text>
+        <Text style={styles.fullnameText}> Phone Number </Text>
       </View>
       <View style={styles.inputcontainer}>
         <FontAwesome
@@ -90,7 +90,7 @@ const register = () => {
       </View>
 
       <View style={styles.addresscontainer}>
-        <Text style={styles.addressText}> Address </Text>
+        <Text style={styles.fullnameText}> Address </Text>
       </View>
       <View style={styles.inputcontainer}>
         <FontAwesome
@@ -110,7 +110,7 @@ const register = () => {
 
       <View style={styles.HaveAcccontainer}>
         <Text style={styles.HaveAccText}>Already have an Account?</Text>
-        <Link href="/">
+        <Link href="/login">
           <Text style={styles.HaveAccTextlink}> Login</Text>
         </Link>
       </View>
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+    marginTop: 70,
   },
   imagecontainers: {
     // blank
@@ -144,13 +145,13 @@ const styles = StyleSheet.create({
   RegisterText: {
     textAlign: "center",
     marginTop: 25,
-    fontSize: 32,
+    fontSize: 35,
     fontWeight: "700",
     fontStyle: "normal"
   },
 
   fullnamecontainer: {
-    marginTop: 5,
+    marginTop: 20,
   },
 
   fullnameText: {
@@ -170,25 +171,14 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
 
-  emailText: {
-    fontSize: 25,
-    fontWeight: "500",
-    textAlign: "left",
-    marginHorizontal: 30,
+  emailAddress: {
+    //
   },
-
-  emailAddress: {},
 
   passwordcontainer: {
     //
   },
 
-  passwordText: {
-    fontSize: 25,
-    fontWeight: "500",
-    textAlign: "left",
-    marginHorizontal: 30,
-  },
   inputcontainer: {
     backgroundColor: "#D9D9D9",
     flexDirection: "row",
@@ -197,7 +187,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
     elevation: 5,
     marginVertical: 10,
-    paddingVertical: 12,
+    paddingVertical: 4,
+    marginTop: 1,
   },
 
   passwordIcon: {
@@ -211,13 +202,6 @@ const styles = StyleSheet.create({
     //
   },
   
-  phonenumberText: {
-    fontSize: 25,
-    fontWeight: "500",
-    textAlign: "left",
-    marginHorizontal: 30,
-  },
-
   phoneIcon: {
     //
   },
@@ -227,13 +211,6 @@ const styles = StyleSheet.create({
 
   addresscontainer: {
     marginTop: 5,
-  },
-
-  addressText: {
-    fontSize: 25,
-    fontWeight: "500",
-    textAlign: "left",
-    marginHorizontal: 30,
   },
 
   Address: {
@@ -263,7 +240,7 @@ const styles = StyleSheet.create({
   },
 
   HaveAccText:{
-    //
+    color: "white"
   },
 
   HaveAccTextlink: {
