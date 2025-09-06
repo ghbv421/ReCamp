@@ -5,7 +5,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  ImageBackground
+  ImageBackground,
 } from "react-native";
 import React from "react";
 import { FontAwesome } from "@expo/vector-icons";
@@ -14,38 +14,39 @@ import { Link } from "expo-router";
 const register = () => {
   return (
     <ImageBackground
-        source={require("../assets/images/bg.png")}
-        style={styles.background}
-        >
-    <View style={styles.container}>
-      <View style={styles.Resetcontainer}>
-        <Text style={styles.ResetText}> RESET PASSWORD </Text>
-      </View>
+      source={require("../assets/images/bg.png")}
+      style={styles.background}
+    >
+      <View style={styles.container}>
+        <View style={styles.Resetcontainer}>
+          <Text style={styles.ResetText}> RESET PASSWORD </Text>
+        </View>
 
-      <View style={styles.emailcontainer}>
-        <Text style={styles.emailText}> Email </Text>
-      </View>
-      <View style={styles.inputcontainer}>
-        <TextInput
-          style={styles.fullname}
-          placeholder=" Enter your registered email"
-          keyboardType="default"/>
-      </View>
+        <View style={styles.emailcontainer}>
+          <Text style={styles.emailText}> Email </Text>
+        </View>
+        <View style={styles.inputcontainer}>
+          <TextInput
+            style={styles.fullname}
+            placeholder=" Enter your registered email"
+            keyboardType="default"
+          />
+        </View>
 
-      <TouchableOpacity style={styles.SendBtn}>
-        <Link href="/forgotpassword2">
-        <Text style={styles.SendBtnText}>Send Code</Text>
-        </Link>
-      </TouchableOpacity>
+        <TouchableOpacity style={styles.SendBtn}>
+          <Link href="/forgotpassword2">
+            <Text style={styles.SendBtnText}>Send Code</Text>
+          </Link>
+        </TouchableOpacity>
 
-      <View style={styles.remembercontainer}>
-        <Text style={styles.rememberText}>Remember your Password?</Text>
-        <Link href="/login">
-          <Text style={styles.rememberTextlink}> Login</Text>
-        </Link>
+        <View style={styles.remembercontainer}>
+          <Text style={styles.rememberText}>Remember your Password?</Text>
+          <Link href="/login">
+            <Text style={styles.rememberTextlink}> Login</Text>
+          </Link>
+        </View>
       </View>
-    </View>
-  </ImageBackground>
+    </ImageBackground>
   );
 };
 
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
     fontSize: 35,
     fontWeight: "700",
-    fontStyle: "normal"
+    fontStyle: "normal",
   },
 
   emailcontainer: {
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 
-  SendBtnText:{
+  SendBtnText: {
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
@@ -131,16 +132,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
 
-  rememberText:{
-    color: "white"
+  rememberText: {
+    color: "white",
   },
 
   rememberTextlink: {
     fontSize: 14,
     fontWeight: "bold",
     color: "#187bcd",
-},
-
+  },
 });
 
 export default register;
