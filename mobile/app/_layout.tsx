@@ -13,7 +13,7 @@ export default function Layout() {
     if (fontsLoaded) {
       const customTextProps = {
         style: {
-          fontFamily: "JustMeAgain",
+          fontFamily: "JustMeAgain", // 👈 global font
         },
       };
       setCustomText(customTextProps);
@@ -29,5 +29,6 @@ export default function Layout() {
     );
   }
 
-  return <Stack screenOptions={{headerShown: false}}/>;
+  // 👇 main navigation stack (dashboard tabs will be inside /dashboard/_layout.tsx)
+  return <Stack screenOptions={{ headerShown: false }} />;
 }

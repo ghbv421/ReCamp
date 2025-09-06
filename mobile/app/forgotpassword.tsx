@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "left",
     marginHorizontal: 30,
+    
   },
 
   fullname: {
