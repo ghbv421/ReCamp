@@ -147,7 +147,11 @@ const styles = StyleSheet.create({
     marginTop: 25,
     fontSize: 35,
     fontWeight: "700",
-    fontStyle: "normal"
+    fontStyle: "normal",
+    color: "white",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
   },
 
   fullnamecontainer: {
@@ -159,6 +163,10 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "left",
     marginHorizontal: 30,
+    color: "white",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
   },
 
   emailAddressIcon: {
@@ -218,7 +226,9 @@ const styles = StyleSheet.create({
   },
 
   RegisterBtn: {
-    backgroundColor: "#df9f9fff",
+    backgroundColor: "#44311A",
+    borderWidth: 1,
+    borderColor: "white",
     marginHorizontal: 100,
     marginTop: 20,
     borderRadius: 25,
@@ -231,6 +241,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
   },
 
   HaveAcccontainer: {
@@ -240,13 +253,19 @@ const styles = StyleSheet.create({
   },
 
   HaveAccText:{
-    color: "white"
+    color: "white",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
   },
 
   HaveAccTextlink: {
     fontSize: 14,
     fontWeight: "bold",
     color: "#187bcd",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
 },
 
 });
