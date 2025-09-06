@@ -26,7 +26,7 @@ const login = () => {
         </View>
 
         <View style={styles.Logincontainer}>
-          <Text style={styles.LoginText}> Ready for Camp? </Text>
+          <Text style={styles.LoginText}> Sign in your Account </Text>
         </View>
 
         <View style={styles.emailcontainer}>
@@ -109,6 +109,10 @@ const styles = StyleSheet.create({
     marginTop: 25,
     fontSize: 32,
     fontWeight: "500",
+    color: "#f6f8f4ff",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
   },
   emailcontainer: {
     marginTop: 44,
@@ -118,7 +122,10 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "left",
     marginHorizontal: 30,
-    color: "#f3b676ff",
+    color: "#fdfdfdff",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
   },
   emailAddressIcon: {
     // blank
@@ -135,7 +142,10 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "left",
     marginHorizontal: 30,
-    color: "#f3b676ff",
+    color: "#f6f3f0ff",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
   },
   inputcontainer: {
     backgroundColor: "#f2f0f0d5",
@@ -164,10 +174,15 @@ const styles = StyleSheet.create({
 
   passwordlink: {
     color: "#187bcd",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
   },
 
   loginBtn: {
-    backgroundColor: "#c7a08bff",
+    backgroundColor: "#44311A",
+    borderWidth: 1,
+    borderColor: "white",
     marginHorizontal: 100,
     marginTop: 30,
     borderRadius: 25,
@@ -179,6 +194,9 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
   },
   registercontainer: {
     flexDirection: "row",
@@ -187,11 +205,17 @@ const styles = StyleSheet.create({
   },
   registertext: {
     color: "white",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
   },
   registerlink: {
     fontSize: 14,
     fontWeight: "bold",
     color: "#187bcd",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
   },
 });
 

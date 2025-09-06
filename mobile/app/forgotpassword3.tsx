@@ -22,29 +22,22 @@ const register = () => {
           <Text style={styles.ResetText}> RESET PASSWORD </Text>
         </View>
 
-        <View style={styles.emailcontainer}>
-          <Text style={styles.emailText}> Email </Text>
+        <View style={styles.newcontainer}>
+          <Text style={styles.newText}> Enter New Password </Text>
         </View>
         <View style={styles.inputcontainer}>
           <TextInput
             style={styles.fullname}
-            placeholder=" Enter your Registered Email"
+            placeholder=" Enter your New Password"
             keyboardType="default"
           />
         </View>
 
-        <TouchableOpacity style={styles.SendBtn}>
-          <Link href="/forgotpassword2">
-            <Text style={styles.SendBtnText}>Send Code</Text>
+        <TouchableOpacity style={styles.confirmBtn}>
+          <Link href="/">
+            <Text style={styles.confirmBtnText}>Confirm</Text>
           </Link>
         </TouchableOpacity>
-
-        <View style={styles.remembercontainer}>
-          <Text style={styles.rememberText}>Remember your Password?</Text>
-          <Link href="/login">
-            <Text style={styles.rememberTextlink}> Login</Text>
-          </Link>
-        </View>
       </View>
     </ImageBackground>
   );
@@ -80,16 +73,16 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontStyle: "normal",
     color: "white",
-    textShadowColor: "#090202ff",
+    textShadowColor: "#0b0808ff",
     textShadowOffset: {width: 2, height: 2},
     textShadowRadius: 2,
   },
 
-  emailcontainer: {
+  newcontainer: {
     marginTop: 90,
   },
 
-  emailText: {
+  newText: {
     fontSize: 25,
     fontWeight: "500",
     textAlign: "left",
@@ -116,44 +109,22 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 
-  SendBtn: {
+  confirmBtn: {
     backgroundColor: "#44311A",
     borderWidth: 1,
     borderColor: "white",
     marginHorizontal: 30,
-    marginTop: 50,
+    marginTop: 20,
     borderRadius: 25,
     paddingVertical: 10,
     alignItems: "center",
     elevation: 5,
   },
 
-  SendBtnText: {
+  confirmBtnText: {
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
-  },
-
-  remembercontainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 10,
-  },
-
-  rememberText: {
-    color: "white",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
-  },
-
-  rememberTextlink: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#187bcd",
     textShadowColor: "#0b0808ff",
     textShadowOffset: {width: 2, height: 2},
     textShadowRadius: 2,
