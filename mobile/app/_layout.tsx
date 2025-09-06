@@ -6,14 +6,14 @@ import { View, ActivityIndicator } from "react-native";
 
 export default function Layout() {
   const [fontsLoaded] = useFonts({
-    InriaSerifBold: require("../assets/fonts/InriaSerif-Bold.ttf"),
+    JustMeAgain: require("../assets/fonts/JustMeAgainDownHere-Regular.ttf"),
   });
 
   useEffect(() => {
     if (fontsLoaded) {
       const customTextProps = {
         style: {
-          fontFamily: "InriaSerifBold", // must match the key in useFonts
+          fontFamily: "JustMeAgain",
         },
       };
       setCustomText(customTextProps);
@@ -24,10 +24,10 @@ export default function Layout() {
   if (!fontsLoaded) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicator size="large" color="#000" />
+        <ActivityIndicator size="large" />
       </View>
     );
   }
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return <Stack screenOptions={{headerShown: false}}/>;
 }
