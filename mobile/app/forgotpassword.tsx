@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
     textShadowColor: "#0b0808ff",
     textShadowOffset: {width: 2, height: 2},
     textShadowRadius: 2,
+    
   },
 
   fullname: {
