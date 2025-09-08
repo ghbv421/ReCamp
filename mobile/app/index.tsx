@@ -1,6 +1,13 @@
-import { View, Text, ImageBackground, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
-import { useRouter } from "expo-router"
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import React from "react";
+import { useRouter } from "expo-router";
 
 const Index = () => {
   const router = useRouter();
@@ -22,17 +29,23 @@ const Index = () => {
           <Text style={styles.motivationText}> Ready for Camp? </Text>
         </View>
 
-        <TouchableOpacity style={styles.loginBtn} onPress={() => router.push("/login")}>
+        <TouchableOpacity
+          style={styles.loginBtn}
+          onPress={() => router.push("/login")}
+        >
           <Text style={styles.logintextbtn}>Sign In</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.registerBtn} onPress={() => router.push("/register")}>
+        <TouchableOpacity
+          style={styles.registerBtn}
+          onPress={() => router.push("/register")}
+        >
           <Text style={styles.registertextbtn}>Register an Account</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   background: {
@@ -43,27 +56,35 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   imagecontainers: {},
-  Textcontainer: {},
+  Textcontainer: {
+    //
+  },
   welcomeText: {
     color: "white",
     textAlign: "center",
-    marginTop: 25,
+    marginTop: 10,
     fontSize: 55,
-    fontFamily: "JustMeAgain", 
+    fontFamily: "JustMeAgain",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 2,
   },
   motivationText: {
     color: "white",
     textAlign: "center",
-    marginTop: 25,
+    marginTop: 10,
     fontSize: 50,
     fontFamily: "JustMeAgain",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 2,
   },
   topImage: {
-    width: 231,
-    height: 231,
-    marginLeft: 90,
+    width: 131,
+    height: 131,
+    marginLeft: 125,
     marginTop: 100,
-    alignItems: "center",
+    justifyContent: "center",
   },
   loginBtn: {
     backgroundColor: "#c7a08bff",
@@ -91,6 +112,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
   },
-})
+});
 
-export default Index
+export default Index;
