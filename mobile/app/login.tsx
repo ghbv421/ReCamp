@@ -26,7 +26,7 @@ const login = () => {
         </View>
 
         <View style={styles.Logincontainer}>
-          <Text style={styles.LoginText}> Sign in your Account </Text>
+          <Text style={styles.LoginText}> Ready for Camp? </Text>
         </View>
 
         <View style={styles.emailcontainer}>
@@ -69,7 +69,9 @@ const login = () => {
         </View>
 
         <TouchableOpacity style={styles.loginBtn}>
+          <Link href="/dashboard/HOME">
           <Text style={styles.logintextbtn}>Login</Text>
+          </Link>
         </TouchableOpacity>
 
         <View style={styles.registercontainer}>
@@ -109,10 +111,6 @@ const styles = StyleSheet.create({
     marginTop: 25,
     fontSize: 32,
     fontWeight: "500",
-    color: "#f6f8f4ff",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
   },
   emailcontainer: {
     marginTop: 44,
@@ -122,10 +120,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "left",
     marginHorizontal: 30,
-    color: "#fdfdfdff",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
+    color: "#f3b676ff",
   },
   emailAddressIcon: {
     // blank
@@ -142,10 +137,7 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     textAlign: "left",
     marginHorizontal: 30,
-    color: "#f6f3f0ff",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
+    color: "#f3b676ff",
   },
   inputcontainer: {
     backgroundColor: "#f2f0f0d5",
@@ -174,15 +166,10 @@ const styles = StyleSheet.create({
 
   passwordlink: {
     color: "#187bcd",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
   },
 
   loginBtn: {
-    backgroundColor: "#44311A",
-    borderWidth: 1,
-    borderColor: "white",
+    backgroundColor: "#c7a08bff",
     marginHorizontal: 100,
     marginTop: 30,
     borderRadius: 25,
@@ -194,9 +181,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
   },
   registercontainer: {
     flexDirection: "row",
@@ -205,17 +189,11 @@ const styles = StyleSheet.create({
   },
   registertext: {
     color: "white",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
   },
   registerlink: {
     fontSize: 14,
     fontWeight: "bold",
     color: "#187bcd",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
   },
 });
 
