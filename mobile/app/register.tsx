@@ -12,112 +12,79 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Link } from "expo-router";
 
 const register = () => {
-  return (
-    <ImageBackground
-        source={require("../assets/images/bg.png")}
-        style={styles.background}
-        >
+    return (
+  <ImageBackground
+    source={require("../assets/images/bg.png")}
+    style={styles.background}
+  >
     <View style={styles.container}>
       <View style={styles.Registercontainer}>
         <Text style={styles.RegisterText}> REGISTRATION </Text>
       </View>
 
-      <View style={styles.fullnamecontainer}>
-        <Text style={styles.fullnameText}> Name </Text>
-      </View>
-      <View style={styles.inputcontainer}>
-        <FontAwesome
-          name="user"
-          size={20}
-          color="9A9A9A"
-          marginLeft="10"
-        ></FontAwesome>
-        <TextInput
-          style={styles.fullname}
-          placeholder="Enter Fullname"
-          keyboardType="default"
-        />
-      </View>
+      <View style={styles.formBox}>
+        {/* Name */}
+        <View style={styles.fullnamecontainer}>
+          <Text style={styles.fullnameText}> Name </Text>
+        </View>
+        <View style={styles.inputcontainer}>
+          <FontAwesome name="user" size={20} color="#9A9A9A" style={{ marginLeft: 10 }} />
+          <TextInput style={styles.fullname} placeholder="Enter Fullname" />
+        </View>
 
-      <View style={styles.emailcontainer}>
-        <Text style={styles.fullnameText}> Email </Text>
-      </View>
-      <View style={styles.inputcontainer}>
-        <FontAwesome
-          name="user"
-          size={20}
-          color="9A9A9A"
-          marginLeft="10"
-          style={styles.emailAddressIcon}
-        ></FontAwesome>
-        <TextInput
-          style={styles.emailAddress}
-          placeholder="Enter email Address"
-          keyboardType="email-address"
-        />
-      </View>
+        {/* Email */}
+        <View style={styles.emailcontainer}>
+          <Text style={styles.fullnameText}> Email </Text>
+        </View>
+        <View style={styles.inputcontainer}>
+          <FontAwesome name="envelope" size={20} color="#9A9A9A" style={{ marginLeft: 10 }} />
+          <TextInput style={styles.emailAddress} placeholder="Enter Email Address" keyboardType="email-address" />
+        </View>
 
-      <View style={styles.passwordcontainer}>
-        <Text style={styles.fullnameText}> Password </Text>
-      </View>
-      <View style={styles.inputcontainer}>
-        <FontAwesome
-          name="lock"
-          size={20}
-          color="9A9A9A"
-          marginLeft="10"
-          style={styles.passwordIcon}
-        ></FontAwesome>
-        <TextInput
-          style={styles.password}
-          placeholder="Enter Password"
-          secureTextEntry={true}
-        />
-      </View>
+        {/* Password */}
+        <View style={styles.passwordcontainer}>
+          <Text style={styles.fullnameText}> Password </Text>
+        </View>
+        <View style={styles.inputcontainer}>
+          <FontAwesome name="lock" size={20} color="#9A9A9A" style={{ marginLeft: 10 }} />
+          <TextInput style={styles.password} placeholder="Enter Password" secureTextEntry />
+        </View>
 
-      <View style={styles.phonenumbercontainer}>
-        <Text style={styles.fullnameText}> Phone Number </Text>
-      </View>
-      <View style={styles.inputcontainer}>
-        <FontAwesome
-          name="phone"
-          size={20}
-          color="9A9A9A"
-          marginLeft="10"
-          style={styles.phonenumber}
-        ></FontAwesome>
-        <TextInput style={styles.phonenumber} placeholder="+63" />
-      </View>
+        {/* Phone Number */}
+        <View style={styles.phonenumbercontainer}>
+          <Text style={styles.fullnameText}> Phone Number </Text>
+        </View>
+        <View style={styles.inputcontainer}>
+          <FontAwesome name="phone" size={20} color="#9A9A9A" style={{ marginLeft: 10 }} />
+          <TextInput style={styles.phonenumber} placeholder="+63" keyboardType="phone-pad" />
+        </View>
 
-      <View style={styles.addresscontainer}>
-        <Text style={styles.fullnameText}> Address </Text>
-      </View>
-      <View style={styles.inputcontainer}>
-        <FontAwesome
-          name="user"
-          size={20}
-          color="9A9A9A"
-          marginLeft="10"
-        ></FontAwesome>
-        <TextInput style={styles.Address}
-          placeholder="address"
-          keyboardType="default"/>
-      </View>
+        {/* Address */}
+        <View style={styles.addresscontainer}>
+          <Text style={styles.fullnameText}> Address </Text>
+        </View>
+        <View style={styles.inputcontainer}>
+          <FontAwesome name="home" size={20} color="#9A9A9A" style={{ marginLeft: 10 }} />
+          <TextInput style={styles.Address} placeholder="Enter Address" />
+        </View>
 
-      <TouchableOpacity style={styles.RegisterBtn}>
-        <Text style={styles.RegisterBtnText}>Register</Text>
-      </TouchableOpacity>
+        {/* Register button */}
+        <TouchableOpacity style={styles.RegisterBtn}>
+          <Text style={styles.RegisterBtnText}>Register</Text>
+        </TouchableOpacity>
 
-      <View style={styles.HaveAcccontainer}>
-        <Text style={styles.HaveAccText}>Already have an Account?</Text>
-        <Link href="/login">
-          <Text style={styles.HaveAccTextlink}> Login</Text>
-        </Link>
+        {/* Already have account */}
+        <View style={styles.HaveAcccontainer}>
+          <Text style={styles.HaveAccText}>Already have an Account?</Text>
+          <Link href="/login">
+            <Text style={styles.HaveAccTextlink}> Login</Text>
+          </Link>
+        </View>
       </View>
     </View>
   </ImageBackground>
-  );
-};
+);
+}
 
 const styles = StyleSheet.create({
   background: {
@@ -128,6 +95,8 @@ const styles = StyleSheet.create({
     flex: 1,
     marginTop: 70,
   },
+
+  
   imagecontainers: {
     // blank
   },
@@ -137,6 +106,13 @@ const styles = StyleSheet.create({
     marginLeft: 125,
     marginTop: 100,
     justifyContent: "center",
+  },
+  formBox: {
+    backgroundColor: "hsla(29, 52%, 21%, 0.40)",
+    marginHorizontal: 20,
+    marginTop: 30,
+    borderRadius: 15,
+    padding: 20,
   },
   Registercontainer: {
     // blank
