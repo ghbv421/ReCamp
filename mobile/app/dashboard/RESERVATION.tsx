@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 
-export default function RESERVATION() {
+export default function reservation() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>📅 Reservation Screen</Text>

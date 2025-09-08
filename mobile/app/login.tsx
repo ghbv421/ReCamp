@@ -69,7 +69,7 @@ const login = () => {
         </View>
 
         <TouchableOpacity style={styles.loginBtn}>
-          <Link href="/dashboard/HOME">
+          <Link href="/dashboard/home">
           <Text style={styles.logintextbtn}>Login</Text>
           </Link>
         </TouchableOpacity>

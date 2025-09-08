@@ -10,20 +10,7 @@ type TabIconProps = {
 
 function TabIcon({ name, focused, isMiddle = false }: TabIconProps) {
   return (
-    <View
-      style={{
-        backgroundColor: focused ? "white" : "transparent",
-        borderRadius: 40,
-        padding: focused ? 12 : 8,
-        borderWidth: focused ? 2 : 0,
-        borderColor: focused ? "#007bff" : "transparent",
-        shadowColor: "#007bff",
-        shadowOpacity: focused ? 0.6 : 0,
-        shadowRadius: 8,
-        elevation: focused ? 8 : 0,
-        marginBottom: isMiddle ? 20 : 0, // 👈 float middle tab
-      }}
-    >
+    <View>
       <Ionicons
         name={name as any} // 👈 TS fix: Ionicons accepts string literals
         size={28}
@@ -37,15 +24,8 @@ export default function DashboardLayout() {
   return (
     <Tabs
       screenOptions={{
-        headerShown: false,
-        tabBarShowLabel: false,
-        tabBarStyle: {
-          backgroundColor: "white",
-          borderTopLeftRadius: 25,
-          borderTopRightRadius: 25,
-          position: "absolute",
-          height: 70,
-        },
+        headerShown: false,      // Hide top header (optional)
+        tabBarShowLabel: false,  // ✅ Prevents showing text below icons
       }}
     >
       <Tabs.Screen
