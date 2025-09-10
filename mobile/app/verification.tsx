@@ -19,25 +19,31 @@ const register = () => {
     >
       <View style={styles.container}>
         <View style={styles.Resetcontainer}>
-          <Text style={styles.ResetText}> RESET PASSWORD </Text>
+          <Text style={styles.ResetText}> Verification Code </Text>
         </View>
 
-        <View style={styles.newcontainer}>
-          <Text style={styles.newText}> Enter New Password </Text>
+        <View style={styles.verifycontainer}>
+          <Text style={styles.verifyText}> Verification </Text>
         </View>
         <View style={styles.inputcontainer}>
           <TextInput
             style={styles.fullname}
-            placeholder=" Enter your New Password"
+            placeholder=" Enter your Verification Code"
             keyboardType="default"
           />
         </View>
 
-        <TouchableOpacity style={styles.confirmBtn}>
-          <Link href="/">
-            <Text style={styles.confirmBtnText}>Confirm</Text>
+        <TouchableOpacity style={styles.nextBtn}>
+          <Link href="/setnew">
+            <Text style={styles.nextBtnText}>Next</Text>
           </Link>
         </TouchableOpacity>
+
+        <View style={styles.resendcontainer}>
+          <Link href="/">
+            <Text style={styles.resendTextlink}>Resend Code</Text>
+          </Link>
+        </View>
       </View>
     </ImageBackground>
   );
@@ -78,11 +84,11 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
   },
 
-  newcontainer: {
+  verifycontainer: {
     marginTop: 90,
   },
 
-  newText: {
+  verifyText: {
     fontSize: 25,
     fontWeight: "500",
     textAlign: "left",
@@ -109,7 +115,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 
-  confirmBtn: {
+  nextBtn: {
     backgroundColor: "#44311A",
     borderWidth: 1,
     borderColor: "white",
@@ -121,10 +127,25 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 
-  confirmBtnText: {
+  nextBtnText: {
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
+  },
+
+  resendcontainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 15,
+  },
+
+  resendTextlink: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#187bcd",
     textShadowColor: "#0b0808ff",
     textShadowOffset: {width: 2, height: 2},
     textShadowRadius: 2,

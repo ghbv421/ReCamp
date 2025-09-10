@@ -34,7 +34,7 @@ const register = () => {
         </View>
 
         <TouchableOpacity style={styles.SendBtn}>
-          <Link href="/forgotpassword2">
+          <Link href="/verification">
             <Text style={styles.SendBtnText}>Send Code</Text>
           </Link>
         </TouchableOpacity>

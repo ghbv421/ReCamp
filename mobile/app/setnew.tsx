@@ -19,31 +19,36 @@ const register = () => {
     >
       <View style={styles.container}>
         <View style={styles.Resetcontainer}>
-          <Text style={styles.ResetText}> RESET PASSWORD </Text>
+          <Text style={styles.ResetText}> Set New Password </Text>
         </View>
 
-        <View style={styles.verifycontainer}>
-          <Text style={styles.verifyText}> Verification </Text>
+        <View style={styles.passcontainer}>
+          <Text style={styles.passText}> Password </Text>
         </View>
         <View style={styles.inputcontainer}>
           <TextInput
             style={styles.fullname}
-            placeholder=" Enter your Verification Code"
+            placeholder=" Enter your New Password"
             keyboardType="default"
           />
         </View>
 
-        <TouchableOpacity style={styles.nextBtn}>
-          <Link href="/forgotpassword3">
-            <Text style={styles.nextBtnText}>Next</Text>
+                <View style={styles.confirmcontainer}>
+          <Text style={styles.confirmText}> Confirm New Password </Text>
+        </View>
+        <View style={styles.inputcontainer}>
+          <TextInput
+            style={styles.fullname}
+            placeholder=" Confirm your New Password"
+            keyboardType="default"
+          />
+        </View>
+
+        <TouchableOpacity style={styles.confirmBtn}>
+          <Link href="/login">
+            <Text style={styles.confirmBtnText}>Confirm</Text>
           </Link>
         </TouchableOpacity>
-
-        <View style={styles.resendcontainer}>
-          <Link href="/">
-            <Text style={styles.resendTextlink}>Resend Code</Text>
-          </Link>
-        </View>
       </View>
     </ImageBackground>
   );
@@ -84,11 +89,26 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
   },
 
-  verifycontainer: {
+  passcontainer: {
     marginTop: 90,
   },
 
-  verifyText: {
+  passText: {
+    fontSize: 25,
+    fontWeight: "500",
+    textAlign: "left",
+    marginHorizontal: 30,
+    color: "white",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
+  },
+
+  confirmcontainer: {
+    marginTop: 10,
+  },
+
+  confirmText: {
     fontSize: 25,
     fontWeight: "500",
     textAlign: "left",
@@ -112,10 +132,10 @@ const styles = StyleSheet.create({
     elevation: 5,
     marginVertical: 10,
     paddingVertical: 4,
-    marginTop: 20,
+    marginTop: 10,
   },
 
-  nextBtn: {
+  confirmBtn: {
     backgroundColor: "#44311A",
     borderWidth: 1,
     borderColor: "white",
@@ -127,25 +147,10 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 
-  nextBtnText: {
+  confirmBtnText: {
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
-  },
-
-  resendcontainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 15,
-  },
-
-  resendTextlink: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#187bcd",
     textShadowColor: "#0b0808ff",
     textShadowOffset: {width: 2, height: 2},
     textShadowRadius: 2,
