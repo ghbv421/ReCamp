@@ -22,9 +22,6 @@ const register = () => {
           <Text style={styles.ResetText}> Verification Code </Text>
         </View>
 
-        <View style={styles.verifycontainer}>
-          <Text style={styles.verifyText}> Verification </Text>
-        </View>
         <View style={styles.inputcontainer}>
           <TextInput
             style={styles.fullname}
@@ -84,21 +81,6 @@ const styles = StyleSheet.create({
     textShadowRadius: 2,
   },
 
-  verifycontainer: {
-    marginTop: 90,
-  },
-
-  verifyText: {
-    fontSize: 25,
-    fontWeight: "500",
-    textAlign: "left",
-    marginHorizontal: 30,
-    color: "white",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
-  },
-
   fullname: {
     //
   },
@@ -112,7 +94,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     marginVertical: 10,
     paddingVertical: 4,
-    marginTop: 20,
+    marginTop: 90,
   },
 
   nextBtn: {

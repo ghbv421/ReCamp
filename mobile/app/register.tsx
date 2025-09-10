@@ -66,7 +66,7 @@ const register = () => {
 
         <TouchableOpacity style={styles.RegisterBtn}>
           <Link href={"/accountcreated"}>
-          <Text style={styles.RegisterBtnText}>Register</Text>
+          <Text style={styles.RegisterBtnText}>Sign Up</Text>
           </Link>
         </TouchableOpacity>
 
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#44311A",
     borderWidth: 1,
     borderColor: "white",
-    marginHorizontal: 100,
+    marginHorizontal: 50,
     marginTop: 20,
     borderRadius: 25,
     paddingVertical: 10,
