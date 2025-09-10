@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   forgetpasscontainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginHorizontal: 5,
+    marginHorizontal: 25,
     marginTop: 5,
   },
   passwordlink: {

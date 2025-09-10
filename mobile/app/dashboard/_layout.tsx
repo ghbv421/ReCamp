@@ -5,12 +5,17 @@ import { Stack } from "expo-router";
 
 export default function DashboardLayout() {
   return (
+    
     <Tabs
       screenOptions={{
-       tabBarActiveTintColor: "brown",
-       tabBarInactiveTintColor: "black",
+       tabBarActiveBackgroundColor: "#392C21",
+       tabBarActiveTintColor: "#EFCC8A",
+       tabBarInactiveTintColor: "#EFCC8A",
+       
        tabBarStyle: {
-        borderWidth: 1,
+        backgroundColor: "#83492B",
+        borderWidth: 0,
+        borderTopWidth: 0,
         borderTopColor: "yellow",
         height: 90,
         paddingBottom: 30,
@@ -19,14 +24,15 @@ export default function DashboardLayout() {
        tabBarLabelStyle: {
         fontSize: 15,
         fontWeight: "900",
-
        }
       }}
     >
+
       <Tabs.Screen
         name="home"
         options={{
           title: "Home",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home-outline" size={size} color={color} />
           ),
@@ -36,6 +42,7 @@ export default function DashboardLayout() {
         name="search"
         options={{
           title: "Search",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="search-outline" size={size} color={color} />
             
@@ -46,6 +53,7 @@ export default function DashboardLayout() {
         name="reservation"
         options={{
           title: "Reservation",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="calendar-outline" size={size} color={color} />
             
@@ -56,6 +64,7 @@ export default function DashboardLayout() {
         name="account"
         options={{
           title: "Account",
+          headerShown: false,
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="person-outline" size={size} color={color} />
             
