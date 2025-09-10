@@ -42,7 +42,7 @@ const register = () => {
         <View style={styles.remembercontainer}>
           <Text style={styles.rememberText}>Remember your Password?</Text>
           <Link href="/login">
-            <Text style={styles.rememberTextlink}> Login</Text>
+            <Text style={styles.rememberTextlink}> Sign In</Text>
           </Link>
         </View>
       </View>

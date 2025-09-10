@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -9,9 +9,20 @@ import {
   ImageBackground,
 } from "react-native";
 import { FontAwesome } from "@expo/vector-icons";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
-const login = () => {
+const Login = () => {
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = () => {
+    console.log("Email:", email);
+    console.log("Password:", password);
+    router.replace("/dashboard/home");
+  };
+
   return (
     <ImageBackground
       source={require("../assets/images/bg.png")}
@@ -26,11 +37,9 @@ const login = () => {
         </View>
         <View style={styles.formBox}>
           <View style={styles.Logincontainer}>
-          <Text style={styles.LoginText}> Sign In</Text>
-        </View>
-          <View style={styles.emailcontainer}>
-            
+            <Text style={styles.LoginText}>Sign In</Text>
           </View>
+
           <View style={styles.inputcontainer}>
             <FontAwesome
               name="user"
@@ -42,11 +51,9 @@ const login = () => {
               style={styles.emailAddress}
               placeholder="Email"
               keyboardType="email-address"
+              value={email}
+              onChangeText={setEmail}
             />
-          </View>
-
-          <View style={styles.passwordcontainer}>
-
           </View>
           <View style={styles.inputcontainer}>
             <FontAwesome
@@ -59,22 +66,20 @@ const login = () => {
               style={styles.password}
               placeholder="Password"
               secureTextEntry={true}
+              value={password}
+              onChangeText={setPassword}
             />
           </View>
-
           <View style={styles.forgetpasscontainer}>
             <Link href="/forgotpassword">
               <Text style={styles.passwordlink}>Forget Password?</Text>
             </Link>
             <Link href="/register">
-              <Text style={styles.registerlink}> Sign Up</Text>
+              <Text style={styles.registerlink}>Sign Up</Text>
             </Link>
           </View>
-
-          <TouchableOpacity style={styles.loginBtn}>
-            <Link href="/dashboard/home">
-              <Text style={styles.logintextbtn}>Login</Text>
-            </Link>
+          <TouchableOpacity onPress={handleLogin} style={styles.loginBtn}>
+            <Text style={styles.logintextbtn}>Sign In</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -110,7 +115,6 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "white",
   },
-
   formBox: {
     backgroundColor: "hsla(29, 52%, 21%, 0.40)",
     marginHorizontal: 20,
@@ -118,34 +122,6 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     padding: 20,
   },
-
-  emailcontainer: {
-    marginTop: 10,
-  },
-  //emailText: {
-    //fontSize: 25,
-    //fontWeight: "500",
-    //textAlign: "left",
-    //marginHorizontal: 5,
-    //color: "#f3b676ff",
-  //},
-  emailAddressIcon: {
-    // blank
-  },
-  emailAddress: {
-    flex: 1,
-    marginLeft: 10,
-  },
-  passwordcontainer: {
-    marginTop: 15,
-  },
-  //passwordText: {
-    //fontSize: 25,
-    //fontWeight: "500",
-    //textAlign: "left",
-    //marginHorizontal: 5,
-    //color: "#f3b676ff",
-  //},
   inputcontainer: {
     backgroundColor: "#f2f0f0d5",
     flexDirection: "row",
@@ -157,6 +133,13 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 10,
   },
+  emailAddressIcon: {
+    // blank
+  },
+  emailAddress: {
+    flex: 1,
+    marginLeft: 10,
+  },
   passwordIcon: {
     // blank
   },
@@ -164,20 +147,16 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 10,
   },
-
   forgetpasscontainer: {
     flexDirection: "row",
     justifyContent: "space-between",
- 
     marginHorizontal: 5,
     marginTop: 5,
   },
-
   passwordlink: {
     color: "#FFCDB2",
     fontWeight: "bold",
   },
-
   loginBtn: {
     backgroundColor: "#c7a08bff",
     marginHorizontal: 50,
@@ -192,12 +171,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  registercontainer: {
-    // blank
-  },
-  registertext: {
-    // blank
-  },
   registerlink: {
     fontSize: 14,
     fontWeight: "bold",
@@ -205,4 +178,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default login;
+export default Login;

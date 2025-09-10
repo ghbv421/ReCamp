@@ -4,7 +4,7 @@ import React from "react";
 export default function reservation() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>📅 Reservation Screen</Text>
+      <Text style={styles.text}> Reservation Screen</Text>
     </View>
   );
 }

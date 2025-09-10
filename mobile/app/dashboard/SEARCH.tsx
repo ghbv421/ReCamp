@@ -4,7 +4,7 @@ import React from "react";
 export default function search() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>🔍 Search Screen</Text>
+      <Text style={styles.text}> Search Screen</Text>
     </View>
   );
 }

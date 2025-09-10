@@ -1,72 +1,64 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { View } from "react-native";
 
-type TabIconProps = {
-  name: string;
-  focused: boolean;
-  isMiddle?: boolean;
-};
 
-function TabIcon({ name, focused, isMiddle = false }: TabIconProps) {
-  return (
-    <View>
-      <Ionicons
-        name={name as any} // 👈 TS fix: Ionicons accepts string literals
-        size={28}
-        color={focused ? "#007bff" : "black"}
-      />
-    </View>
-  );
-}
 
 export default function DashboardLayout() {
   return (
     <Tabs
       screenOptions={{
-        headerShown: false,      // Hide top header (optional)
-        tabBarShowLabel: false,  // ✅ Prevents showing text below icons
+       tabBarActiveTintColor: "brown",
+       tabBarInactiveTintColor: "black",
+       tabBarStyle: {
+        borderWidth: 1,
+        borderTopColor: "yellow",
+        height: 90,
+        paddingBottom: 30,
+        paddingTop: 7,
+       },
+       tabBarLabelStyle: {
+        fontSize: 15,
+        fontWeight: "900",
+
+       }
       }}
     >
       <Tabs.Screen
         name="home"
         options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon name={focused ? "home" : "home-outline"} focused={focused} />
+          title: "Home",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home-outline" size={size} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="search"
         options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              name={focused ? "search" : "search-outline"}
-              focused={focused}
-              isMiddle
-            />
+          title: "Search",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="search-outline" size={size} color={color} />
+            
           ),
         }}
       />
       <Tabs.Screen
         name="reservation"
         options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              name={focused ? "calendar" : "calendar-outline"}
-              focused={focused}
-            />
+          title: "Reservation",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="calendar-outline" size={size} color={color} />
+            
           ),
         }}
       />
       <Tabs.Screen
         name="account"
         options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon
-              name={focused ? "person" : "person-outline"}
-              focused={focused}
-            />
+          title: "Account",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="person-outline" size={size} color={color} />
+            
           ),
         }}
       />

@@ -77,7 +77,7 @@ const register = () => {
         <View style={styles.HaveAcccontainer}>
           <Text style={styles.HaveAccText}>Already have an Account?</Text>
           <Link href="/login">
-            <Text style={styles.HaveAccTextlink}> Login</Text>
+            <Text style={styles.HaveAccTextlink}> Sign In</Text>
           </Link>
         </View>
       </View>
