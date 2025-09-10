@@ -19,11 +19,11 @@ const register = () => {
   >
     <View style={styles.container}>
       <View style={styles.Registercontainer}>
-        <Text style={styles.RegisterText}> REGISTRATION </Text>
+        <Text style={styles.RegisterText}> Sign Up </Text>
       </View>
 
       <View style={styles.formBox}>
-        {/* Name */}
+
         <View style={styles.fullnamecontainer}>
           <Text style={styles.fullnameText}> Name </Text>
         </View>
@@ -32,7 +32,6 @@ const register = () => {
           <TextInput style={styles.fullname} placeholder="Enter Fullname" />
         </View>
 
-        {/* Email */}
         <View style={styles.emailcontainer}>
           <Text style={styles.fullnameText}> Email </Text>
         </View>
@@ -41,7 +40,6 @@ const register = () => {
           <TextInput style={styles.emailAddress} placeholder="Enter Email Address" keyboardType="email-address" />
         </View>
 
-        {/* Password */}
         <View style={styles.passwordcontainer}>
           <Text style={styles.fullnameText}> Password </Text>
         </View>
@@ -50,7 +48,6 @@ const register = () => {
           <TextInput style={styles.password} placeholder="Enter Password" secureTextEntry />
         </View>
 
-        {/* Phone Number */}
         <View style={styles.phonenumbercontainer}>
           <Text style={styles.fullnameText}> Phone Number </Text>
         </View>
@@ -59,7 +56,6 @@ const register = () => {
           <TextInput style={styles.phonenumber} placeholder="+63" keyboardType="phone-pad" />
         </View>
 
-        {/* Address */}
         <View style={styles.addresscontainer}>
           <Text style={styles.fullnameText}> Address </Text>
         </View>
@@ -68,12 +64,12 @@ const register = () => {
           <TextInput style={styles.Address} placeholder="Enter Address" />
         </View>
 
-        {/* Register button */}
         <TouchableOpacity style={styles.RegisterBtn}>
+          <Link href={"/accountcreated"}>
           <Text style={styles.RegisterBtnText}>Register</Text>
+          </Link>
         </TouchableOpacity>
 
-        {/* Already have account */}
         <View style={styles.HaveAcccontainer}>
           <Text style={styles.HaveAccText}>Already have an Account?</Text>
           <Link href="/login">
