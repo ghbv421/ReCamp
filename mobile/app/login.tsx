@@ -71,7 +71,7 @@ const Login = () => {
             />
           </View>
           <View style={styles.forgetpasscontainer}>
-            <Link href="/forgotpassword">
+            <Link href="/resetpassword">
               <Text style={styles.passwordlink}>Forget Password?</Text>
             </Link>
             <Link href="/register">
@@ -110,10 +110,14 @@ const styles = StyleSheet.create({
   },
   LoginText: {
     textAlign: "center",
-    marginTop: 25,
+    marginTop: 5,
+    marginBottom: 10,
     fontSize: 32,
     fontWeight: "500",
     color: "white",
+    textShadowColor: "#0b0808ff",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
   },
   formBox: {
     backgroundColor: "hsla(29, 52%, 21%, 0.40)",
