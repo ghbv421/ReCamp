@@ -11,15 +11,12 @@ export default function DashboardLayout() {
        tabBarActiveBackgroundColor: "#392C21",
        tabBarActiveTintColor: "#EFCC8A",
        tabBarInactiveTintColor: "#EFCC8A",
-       
        tabBarStyle: {
         backgroundColor: "#83492B",
         borderWidth: 0,
         borderTopWidth: 0,
         borderTopColor: "yellow",
         height: 90,
-        paddingBottom: 30,
-        paddingTop: 7,
        },
        tabBarLabelStyle: {
         fontSize: 15,
