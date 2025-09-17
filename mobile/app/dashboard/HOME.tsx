@@ -56,13 +56,27 @@ export default function Home() {
               <Ionicons name="heart-outline" size={22} color="red" />
             </TouchableOpacity>
           </ImageBackground>
-
+        
+        <View style={styles.cardBox}>
           <ImageBackground
-            source={require("../../assets/images/Cowboys.png")}
+            source={require("../../assets/images/Zion.jpg")}
             style={styles.cardImage}
             imageStyle={{ borderRadius: 12 }}
           >
-            <Text style={styles.cardTitle}>Cowboy’s Camp</Text>
+            <Text style={styles.cardTitle}>Camp Zion</Text>
+            <TouchableOpacity style={styles.heartIcon}>
+              <Ionicons name="heart-outline" size={22} color="red" />
+            </TouchableOpacity>
+          </ImageBackground>
+        </View>
+        </View>
+        <View style={styles.cardBox}>
+          <ImageBackground
+            source={require("../../assets/images/Lilbaguio.png")}
+            style={styles.cardImage}
+            imageStyle={{ borderRadius: 12 }}
+          >
+            <Text style={styles.cardTitle}>Little Baguio</Text>
             <TouchableOpacity style={styles.heartIcon}>
               <Ionicons name="heart-outline" size={22} color="red" />
             </TouchableOpacity>
@@ -71,24 +85,11 @@ export default function Home() {
 
         <View style={styles.cardBox}>
           <ImageBackground
-            source={require("../../assets/images/Agos.png")}
+            source={require("../../assets/images/Kauswagan.png")}
             style={styles.cardImage}
             imageStyle={{ borderRadius: 12 }}
           >
-            <Text style={styles.cardTitle}>Camp Agos River</Text>
-            <TouchableOpacity style={styles.heartIcon}>
-              <Ionicons name="heart-outline" size={22} color="red" />
-            </TouchableOpacity>
-          </ImageBackground>
-        </View>
-
-        <View style={styles.cardBox}>
-          <ImageBackground
-            source={require("../../assets/images/Hapitanan.png")}
-            style={styles.cardImage}
-            imageStyle={{ borderRadius: 12 }}
-          >
-            <Text style={styles.cardTitle}>Camp Hapitanan</Text>
+            <Text style={styles.cardTitle}>Vista Del Paraiso</Text>
             <TouchableOpacity style={styles.heartIcon}>
               <Ionicons name="heart-outline" size={22} color="red" />
             </TouchableOpacity>
