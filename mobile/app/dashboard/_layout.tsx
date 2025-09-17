@@ -16,7 +16,7 @@ export default function DashboardLayout() {
         borderWidth: 0,
         borderTopWidth: 0,
         borderTopColor: "yellow",
-        height: 90,
+        height: 70,
        },
        tabBarLabelStyle: {
         fontSize: 15,
@@ -36,13 +36,12 @@ export default function DashboardLayout() {
         }}
       />
       <Tabs.Screen
-        name="search"
+        name="favorites"
         options={{
-          title: "Search",
+          title: "Favorites",
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="search-outline" size={size} color={color} />
-            
+            <Ionicons name="heart-outline" size={size} color={color} />
           ),
         }}
       />
@@ -63,8 +62,7 @@ export default function DashboardLayout() {
           title: "Account",
           headerShown: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person-outline" size={size} color={color} />
-            
+            <Ionicons name="person-outline" size={size} color={color} />    
           ),
         }}
       />
