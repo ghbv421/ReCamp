@@ -24,11 +24,13 @@ export default function Account() {
       <View style={styles.menuBox}>
         <TouchableOpacity style={styles.menuItem1}>
           <Link href="/profile/profiledetails"> 
-          <Text style={styles.menuText}>Profile Details</Text>
+          <Text style={styles.menuText}> Profile Details</Text>
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem2}>
-          <Text style={styles.menuText}>   Reservation & Transaction History</Text>
+          <Link href="/transact/transact"> 
+          <Text style={styles.menuText}>   Transaction History</Text>
+          </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem3}>
           <Text style={styles.menuText}>   Suggestions</Text>
