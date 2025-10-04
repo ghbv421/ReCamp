@@ -4,6 +4,9 @@ import { useEffect } from "react";
 import { setCustomText, setCustomTextInput } from "react-native-global-props";
 import { View, ActivityIndicator } from "react-native";
 
+// Import your FavoritesProvider
+import { FavoritesProvider } from "./context/FavoritesContext";
+
 export default function Layout() {
   const [fontsLoaded] = useFonts({
     JustMeAgain: require("../assets/fonts/JustMeAgainDownHere-Regular.ttf"),
@@ -28,5 +31,10 @@ export default function Layout() {
       </View>
     );
   }
-  return <Stack screenOptions={{ headerShown: false }} />;
+
+  return (
+    <FavoritesProvider>
+      <Stack screenOptions={{ headerShown: false }} />
+    </FavoritesProvider>
+  );
 }

@@ -1,96 +1,88 @@
-import { View, Text, StyleSheet, ImageBackground, ScrollView } from "react-native";
+import { View, Text, StyleSheet, ImageBackground, ScrollView, Image } from "react-native";
 import React from "react";
+import { useFavorites } from "../context/FavoritesContext";
+
+const camps = [
+  { id: "cowboys", title: "Cowboy’s Camp", image: require("../../assets/images/Cowboys.png") },
+  { id: "agos", title: "Camp Agos River", image: require("../../assets/images/Agos.png") },
+  { id: "hapitanan", title: "Camp Hapitanan", image: require("../../assets/images/Hapitanan.png") },
+  { id: "zion", title: "Camp Zion", image: require("../../assets/images/Zion.jpg") },
+  { id: "lilbaguio", title: "Little Baguio", image: require("../../assets/images/Lilbaguio.png") },
+  { id: "kauswagan", title: "Vista Del Paraiso", image: require("../../assets/images/Kauswagan.png") },
+];
 
 export default function Favorites() {
+  const { favorites } = useFavorites();
+  const favoriteCamps = camps.filter((camp) => favorites[camp.id]);
+
   return (
     <ImageBackground
       source={require("../../assets/images/dashboardbg.png")}
       style={styles.background}
     >
+      {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.recampText}>Favorites</Text>
-        <View style={styles.line} />
+        <Image source={require("../../assets/images/logoheader.png")} style={styles.logo} />
+        <Text style={styles.recampText}>RE CAMP</Text>
       </View>
-      <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
 
-        <View style={styles.box}>
-          <Text style={styles.boxText}>Box 1</Text>
-        </View>
-        <View style={styles.box}>
-          <Text style={styles.boxText}>Box 2</Text>
-        </View>
-        <View style={styles.box}>
-          <Text style={styles.boxText}>Box 3</Text>
-        </View>
-        <View style={styles.box}>
-          <Text style={styles.boxText}>Box 4</Text>
-        </View>
-        <View style={styles.box}>
-          <Text style={styles.boxText}>Box 5</Text>
-        </View>
-        <View style={styles.box}>
-          <Text style={styles.boxText}>Box 1</Text>
-        </View>
-        <View style={styles.box}>
-          <Text style={styles.boxText}>Box 2</Text>
-        </View>
-        <View style={styles.box}>
-          <Text style={styles.boxText}>Box 3</Text>
-        </View>
-        <View style={styles.box}>
-          <Text style={styles.boxText}>Box 4</Text>
-        </View>
-        <View style={styles.box}>
-          <Text style={styles.boxText}>Box 5</Text>
-        </View>
+      <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+        {favoriteCamps.length === 0 ? (
+          <Text style={styles.noFav}>No favorites yet </Text>
+        ) : (
+          favoriteCamps.map((camp) => (
+            <View key={camp.id} style={styles.box}>
+              <Image source={camp.image} style={styles.boxImage} />
+              <Text style={styles.boxText}>{camp.title}</Text>
+            </View>
+          ))
+        )}
       </ScrollView>
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    resizeMode: "cover",
-  },
+  background: { flex: 1 },
+
   header: {
     width: "100%",
-    paddingTop: 50,
-    paddingBottom: 10,
+    height: 90,
+    flexDirection: "row",
     alignItems: "center",
+    paddingHorizontal: 15,
+    backgroundColor: "#83492B",
+  },
+  logo: {
+    marginTop: 60,
+    width: 120,
+    resizeMode: "contain",
+    marginRight: 8,
   },
   recampText: {
-    fontSize: 30,
-    fontWeight: "bold",
+    marginTop: 40, 
+    fontSize: 28,
+    fontWeight: "500",
     color: "#000",
   },
-  line: {
-    marginTop: 8,
-    width: "100%",
-    height: 1,
-    backgroundColor: "#000000ff",
+
+  scrollContainer: { 
+    padding: 20, 
+    alignItems: "center" 
   },
-  scrollContainer: {
-    padding: 20,
-    alignItems: "center",
+  noFav: { 
+    fontSize: 18, 
+    color: "#555", 
+    marginTop: 50 
   },
   box: {
     width: "90%",
-    height: 100,
     backgroundColor: "#D2A679",
     borderRadius: 10,
     marginBottom: 15,
-    justifyContent: "center",
     alignItems: "center",
-    elevation: 3, 
-    shadowColor: "#f88c8cff",
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
+    padding: 10,
   },
-  boxText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#000000ff",
-  },
+  boxImage: { width: "100%", height: 120, borderRadius: 8, marginBottom: 8 },
+  boxText: { fontSize: 18, fontWeight: "bold", color: "#000" },
 });

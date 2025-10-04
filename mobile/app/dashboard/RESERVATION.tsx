@@ -1,33 +1,67 @@
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from "react-native";
 import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  TouchableOpacity,
+  FlatList,
+  Image,
+} from "react-native";
+
+type ReservationItem = {
+  id: string;
+  title: string;
+  time: string;
+};
 
 export default function Reservation() {
+  const data: ReservationItem[] = [
+    { id: "1", title: "Cowboy's Camp", time: "09-30-25-9:46AM" },
+    { id: "2", title: "Camp Agos River", time: "09-30-25-1:24PM" },
+    { id: "3", title: "Camp Hapitanan", time: "09-30-25-4:12PM" },
+    { id: "4", title: "Camp Zion", time: "09-30-25-9:51AM" },
+    { id: "5", title: "Cowboy's Camp", time: "09-30-25-9:46AM" },
+    { id: "6", title: "Camp Agos River", time: "09-30-25-1:24PM" },
+    { id: "7", title: "Camp Hapitanan", time: "09-30-25-4:12PM" },
+    { id: "8", title: "Camp Zion", time: "09-30-25-9:51AM" },
+  ];
+
+  const renderItem = ({ item }: { item: ReservationItem }) => (
+    <View style={styles.card}>
+      <Image
+        source={require("../../assets/images/Cowboys.png")}
+        style={styles.icon}
+      />
+      <View style={styles.cardTextContainer}>
+        <Text style={styles.cardTitle}>{item.title}</Text>
+        <Text style={styles.cardSubtitle}>{item.time}</Text>
+      </View>
+    </View>
+  );
+
   return (
     <ImageBackground
       source={require("../../assets/images/dashboardbg.png")}
       style={styles.background}
     >
-
       <View style={styles.header}>
-        <Text style={styles.recampText}>My Reservations</Text>
-        <View style={styles.line} />
+        <Text style={styles.title}>Reservation</Text>
       </View>
 
       <View style={styles.tabsContainer}>
-        <TouchableOpacity style={styles.tab}>
-          <Text style={styles.tabText}>Upcoming</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tab}>
-          <Text style={styles.tabText}>Past</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.tab}>
-          <Text style={styles.tabText}>Cancelled</Text>
+        <TouchableOpacity style={styles.activeTab}>
+          <Text style={styles.activeTabText}>Upcoming</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={styles.container}>
-        <Text style={styles.text}></Text>
-      </View>
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.id}
+        renderItem={renderItem}
+        contentContainerStyle={styles.listContainer}
+        showsVerticalScrollIndicator={false}
+      />
     </ImageBackground>
   );
 }
@@ -37,51 +71,60 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
   },
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   header: {
-    width: "100%",
     paddingTop: 50,
-    paddingBottom: 10,
+    paddingBottom: 15,
     alignItems: "center",
   },
-  recampText: {
-    fontSize: 30,
-    fontWeight: "bold",
-    color: "#000",
-  },
-  line: {
-    marginTop: 8,
-    width: "100%",
-    height: 1,
-    backgroundColor: "#000",
-  },
-
-  tabsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-  },
-  tab: {
-    flex: 1,
-    marginHorizontal: 5,
-    paddingVertical: 8,
-    backgroundColor: "#d3d3d3",
-    borderRadius: 5,
-    alignItems: "center",
-  },
-  tabText: {
-    fontSize: 16,
+  title: {
+    fontSize: 28,
     fontWeight: "600",
     color: "#000",
   },
-
-  text: {
-    fontSize: 24,
-    fontWeight: "bold",
+  tabsContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginBottom: 10,
+  },
+  activeTab: {
+    borderBottomWidth: 3,
+    borderBottomColor: "#000",
+    paddingVertical: 8,
+    paddingHorizontal: 30,
+  },
+  activeTabText: {
+    fontSize: 18,
+    fontWeight: "600",
+    color: "#000",
+  },
+  listContainer: {
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+  },
+  card: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "rgba(255,255,255,0.7)",
+    borderRadius: 15,
+    padding: 18,
+    marginBottom: 12,
+  },
+  icon: {
+    width: 70,  
+    height: 70,  
+    marginRight: 18,
+  },
+  cardTextContainer: {
+    flex: 1,
+  },
+  cardTitle: {
+    fontSize: 21,
+    fontWeight: "600",
+    color: "#000",
+  },
+  cardSubtitle: {
+    fontSize: 16,
+    color: "#555",
+    marginTop: 3,
   },
 });
