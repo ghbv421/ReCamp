@@ -8,11 +8,13 @@ import {
   ImageBackground,
   ScrollView,
 } from "react-native";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router"; // ✅ import useRouter
 import React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function ProfileDetails() {
+  const router = useRouter(); // ✅ create router instance
+
   return (
     <ImageBackground
       source={require("../../assets/images/dashboardbg.png")}
@@ -27,9 +29,13 @@ export default function ProfileDetails() {
             source={require("../../assets/images/Profile-icon.png")}
             style={styles.profileIcon}
           />
-          <View style={styles.cameraIcon}>
-            <Ionicons name="camera" size={20} color="#000" />
-          </View>
+
+          {/* Make the camera icon clickable and navigate */}
+          <Link href="/profile/profilepic" asChild>
+            <TouchableOpacity style={styles.cameraIcon}>
+              <Ionicons name="camera" size={20} color="#000" />
+            </TouchableOpacity>
+          </Link>
         </View>
 
         <TextInput
@@ -56,8 +62,8 @@ export default function ProfileDetails() {
         />
 
         <TouchableOpacity style={styles.saveBtn}>
-        <Link href={"/dashboard/account"}>
-          <Text style={styles.saveText}>Save Changes</Text>
+          <Link href={"/dashboard/account"}>
+            <Text style={styles.saveText}>Save Changes</Text>
           </Link>
         </TouchableOpacity>
       </ScrollView>

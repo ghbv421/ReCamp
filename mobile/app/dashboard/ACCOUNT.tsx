@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, ImageBackground, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import { Link } from "expo-router";
 
@@ -23,26 +30,26 @@ export default function Account() {
 
       <View style={styles.menuBox}>
         <TouchableOpacity style={styles.menuItem1}>
-          <Link href="/profile/profiledetails"> 
-          <Text style={styles.menuText}> Profile Details</Text>
+          <Link href="/profile/profiledetails">
+            <Text style={styles.menuText}> Profile Details</Text>
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem2}>
-          <Link href="/transact/transact"> 
-          <Text style={styles.menuText}>   Transaction History</Text>
+          <Link href="/transact/transact">
+            <Text style={styles.menuText}> Transaction History</Text>
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem3}>
-          <Text style={styles.menuText}>   Suggestions</Text>
+          <Text style={styles.menuText}>Suggestions</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem4}>     
-          <Text style={styles.menuText}>  Terms & Policy</Text>
+        <TouchableOpacity style={styles.menuItem4}>
+          <Text style={styles.menuText}> Terms & Policy</Text>
         </TouchableOpacity>
       </View>
 
       <TouchableOpacity style={styles.logoutBtn}>
         <Link href="/login">
-        <Text style={styles.logoutText}>Logout</Text>
+          <Text style={styles.logoutText}>Logout</Text>
         </Link>
       </TouchableOpacity>
     </ImageBackground>
@@ -94,7 +101,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 10,
   },
-  
+
   menuItem: {
     marginTop: 10,
     marginBottom: 10,
