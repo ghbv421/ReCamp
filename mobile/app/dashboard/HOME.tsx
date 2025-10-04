@@ -1,111 +1,54 @@
 import { View, Text, StyleSheet, ImageBackground, ScrollView, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { useFavorites } from "../context/FavoritesContext";
+
+const camps = [
+  { id: "cowboys", title: "Cowboy’s Camp", image: require("../../assets/images/Cowboys.png") },
+  { id: "agos", title: "Camp Agos River", image: require("../../assets/images/Agos.png") },
+  { id: "hapitanan", title: "Camp Hapitanan", image: require("../../assets/images/Hapitanan.png") },
+  { id: "zion", title: "Camp Zion", image: require("../../assets/images/Zion.jpg") },
+  { id: "lilbaguio", title: "Little Baguio", image: require("../../assets/images/Lilbaguio.png") },
+  { id: "kauswagan", title: "Vista Del Paraiso", image: require("../../assets/images/Kauswagan.png") },
+];
 
 export default function Home() {
+  const { favorites, toggleFavorite } = useFavorites();
+
   return (
     <ImageBackground
       source={require("../../assets/images/dashboardbg.png")}
       style={styles.background}
     >
-
+      {/* Header */}
       <View style={styles.header}>
-        <Image
-          source={require("../../assets/images/logoheader.png")}
-          style={styles.logo}
-        />
+        <Image source={require("../../assets/images/logoheader.png")} style={styles.logo} />
         <Text style={styles.recampText}>RE CAMP</Text>
       </View>
 
+      {/* Camps List */}
       <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
-
-        <View style={styles.cardBox}>
-          <ImageBackground
-            source={require("../../assets/images/Cowboys.png")}
-            style={styles.cardImage}
-            imageStyle={{ borderRadius: 12 }}
-          >
-            <Text style={styles.cardTitle}>Cowboy’s Camp</Text>
-            <TouchableOpacity style={styles.heartIcon}>
-              <Ionicons name="heart-outline" size={22} color="red" />
-            </TouchableOpacity>
-          </ImageBackground>
-        </View>
-
-        <View style={styles.cardBox}>
-          <ImageBackground
-            source={require("../../assets/images/Agos.png")}
-            style={styles.cardImage}
-            imageStyle={{ borderRadius: 12 }}
-          >
-            <Text style={styles.cardTitle}>Camp Agos River</Text>
-            <TouchableOpacity style={styles.heartIcon}>
-              <Ionicons name="heart-outline" size={22} color="red" />
-            </TouchableOpacity>
-          </ImageBackground>
-        </View>
-
-        <View style={styles.cardBox}>
-          <ImageBackground
-            source={require("../../assets/images/Hapitanan.png")}
-            style={styles.cardImage}
-            imageStyle={{ borderRadius: 12 }}
-          >
-            <Text style={styles.cardTitle}>Camp Hapitanan</Text>
-            <TouchableOpacity style={styles.heartIcon}>
-              <Ionicons name="heart-outline" size={22} color="red" />
-            </TouchableOpacity>
-          </ImageBackground>
-        
-        <View style={styles.cardBox}>
-          <ImageBackground
-            source={require("../../assets/images/Zion.jpg")}
-            style={styles.cardImage}
-            imageStyle={{ borderRadius: 12 }}
-          >
-            <Text style={styles.cardTitle}>Camp Zion</Text>
-            <TouchableOpacity style={styles.heartIcon}>
-              <Ionicons name="heart-outline" size={22} color="red" />
-            </TouchableOpacity>
-          </ImageBackground>
-        </View>
-        </View>
-        <View style={styles.cardBox}>
-          <ImageBackground
-            source={require("../../assets/images/Lilbaguio.png")}
-            style={styles.cardImage}
-            imageStyle={{ borderRadius: 12 }}
-          >
-            <Text style={styles.cardTitle}>Little Baguio</Text>
-            <TouchableOpacity style={styles.heartIcon}>
-              <Ionicons name="heart-outline" size={22} color="red" />
-            </TouchableOpacity>
-          </ImageBackground>
-        </View>
-
-        <View style={styles.cardBox}>
-          <ImageBackground
-            source={require("../../assets/images/Kauswagan.png")}
-            style={styles.cardImage}
-            imageStyle={{ borderRadius: 12 }}
-          >
-            <Text style={styles.cardTitle}>Vista Del Paraiso</Text>
-            <TouchableOpacity style={styles.heartIcon}>
-              <Ionicons name="heart-outline" size={22} color="red" />
-            </TouchableOpacity>
-          </ImageBackground>
-        </View>
-
+        {camps.map((camp) => (
+          <View key={camp.id} style={styles.cardBox}>
+            <ImageBackground source={camp.image} style={styles.cardImage} imageStyle={{ borderRadius: 12 }}>
+              <Text style={styles.cardTitle}>{camp.title}</Text>
+              <TouchableOpacity style={styles.heartIcon} onPress={() => toggleFavorite(camp.id)}>
+                <Ionicons
+                  name={favorites[camp.id] ? "heart" : "heart-outline"}
+                  size={26}
+                  color="red"
+                />
+              </TouchableOpacity>
+            </ImageBackground>
+          </View>
+        ))}
       </ScrollView>
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    resizeMode: "cover",
-  },
+  background: { flex: 1 },
   header: {
     width: "100%",
     height: 90,
@@ -115,51 +58,39 @@ const styles = StyleSheet.create({
     backgroundColor: "#83492B",
   },
   logo: {
-    marginTop: 45,
+    marginTop: 60,
     width: 120,
     resizeMode: "contain",
     marginRight: 8,
   },
   recampText: {
-    marginTop: 30,
-    fontSize: 30,
-    fontWeight: 500,
-    color: "#000000ff",
+    marginTop: 40, 
+    fontSize: 28,
+    fontWeight: "500",
+    color: "#000",
   },
-  scrollContainer: {
-    padding: 15,
-    paddingBottom: 100,
+  scrollContainer: { 
+    padding: 15, 
+    paddingBottom: 100 
   },
-
-  cardBox: {
+  cardBox: { 
     backgroundColor: "#D2A679", 
-    borderRadius: 16,
-    padding: 6,              
-    marginBottom: 15,
-    elevation: 3,             
-    shadowColor: "#000",       
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 },
+    borderRadius: 16, 
+    padding: 6, 
+    marginBottom: 15 
   },
-
-  cardImage: {
-    height: 180,
-    justifyContent: "flex-end",
-    padding: 10,
+  cardImage: { 
+    height: 180, 
+    justifyContent: "flex-end", 
+    padding: 10 
   },
   cardTitle: {
     backgroundColor: "rgba(255,255,255,0.7)",
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 6,
-    alignSelf: "flex-start",
     fontWeight: "bold",
     fontSize: 16,
   },
-  heartIcon: {
-    position: "absolute",
-    bottom: 10,
-    right: 10,
-  },
+  heartIcon: { position: "absolute", bottom: 10, right: 10 },
 });

@@ -33,10 +33,14 @@ export default function Account() {
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem3}>
+          <Link href="/suggest/suggest"> 
           <Text style={styles.menuText}>   Suggestions</Text>
+          </Link>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.menuItem4}>     
+        <TouchableOpacity style={styles.menuItem4}> 
+          <Link href="/termpo/termpo">    
           <Text style={styles.menuText}>  Terms & Policy</Text>
+          </Link>
         </TouchableOpacity>
       </View>
 
