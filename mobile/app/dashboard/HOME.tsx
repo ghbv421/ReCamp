@@ -20,13 +20,11 @@ export default function Home() {
       source={require("../../assets/images/dashboardbg.png")}
       style={styles.background}
     >
-      {/* Header */}
       <View style={styles.header}>
         <Image source={require("../../assets/images/logoheader.png")} style={styles.logo} />
         <Text style={styles.recampText}>RE CAMP</Text>
       </View>
 
-      {/* Camps List */}
       <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
         {camps.map((camp) => (
           <View key={camp.id} style={styles.cardBox}>
