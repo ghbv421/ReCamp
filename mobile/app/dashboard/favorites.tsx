@@ -22,7 +22,7 @@ export default function Favorites() {
     >
       {/* Header */}
       <View style={styles.header}>
-        <Image source={require("../../assets/images/logoheader.png")} style={styles.logo} />
+        <Image source={require("../../assets/images/logoheader2.png")} style={styles.logo} />
         <Text style={styles.recampText}>RE CAMP</Text>
       </View>
 
@@ -54,8 +54,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#83492B",
   },
   logo: {
-    marginTop: 60,
-    width: 120,
+    marginTop: 40,
+    width: 60,
+    height: 60,
     resizeMode: "contain",
     marginRight: 8,
   },
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     marginTop: 40, 
     fontSize: 28,
     fontWeight: "500",
-    color: "#000",
+    color: "#ffffffff",
   },
 
   scrollContainer: { 

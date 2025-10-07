@@ -8,7 +8,7 @@ import {
   ImageBackground,
 } from "react-native";
 
-const Suggest = () => {
+const Suggests = () => {
   return (
     <ImageBackground
       source={require("../../assets/images/dashboardbg.png")}
@@ -79,4 +79,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Suggest;
+export default Suggests;

@@ -1,3 +1,5 @@
+
+
 import {
   View,
   Text,
@@ -35,17 +37,17 @@ export default function Account() {
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem2}>
-          <Link href="/transact/transact">
+          <Link href="/transact/transacts">
             <Text style={styles.menuText}> Transaction History</Text>
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem3}>
-          <Link href="/suggest/suggest">
+          <Link href="/suggest/suggests">
           <Text style={styles.menuText}>Suggestions</Text>
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem4}>
-          <Link href="/termpo/termpo">
+          <Link href="/termpo/termpol">
           <Text style={styles.menuText}> Terms & Policy</Text>
           </Link>
         </TouchableOpacity>
@@ -100,9 +102,9 @@ const styles = StyleSheet.create({
   },
   menuBox: {
     width: "90%",
-    backgroundColor: "rgba(139,69,19,0.8)",
+    backgroundColor: "#8b4513cc",
     borderRadius: 10,
-    marginTop: 20,
+    marginTop: 40,
     padding: 10,
   },
 
@@ -143,7 +145,7 @@ const styles = StyleSheet.create({
   },
   logoutBtn: {
     marginTop: 40,
-    backgroundColor: "#FF8C42",
+    backgroundColor: "#ED8E45",
     paddingVertical: 12,
     paddingHorizontal: 80,
     borderRadius: 8,

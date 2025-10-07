@@ -1,3 +1,5 @@
+
+
 import { View, Text, StyleSheet, ImageBackground, ScrollView, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { Ionicons } from "@expo/vector-icons";
@@ -21,7 +23,7 @@ export default function Home() {
       style={styles.background}
     >
       <View style={styles.header}>
-        <Image source={require("../../assets/images/logoheader.png")} style={styles.logo} />
+        <Image source={require("../../assets/images/logoheader2.png")} style={styles.logo} />
         <Text style={styles.recampText}>RE CAMP</Text>
       </View>
 
@@ -56,8 +58,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#83492B",
   },
   logo: {
-    marginTop: 60,
-    width: 120,
+    marginTop: 40,
+    width: 60,
+    height: 60,
     resizeMode: "contain",
     marginRight: 8,
   },
@@ -65,7 +68,7 @@ const styles = StyleSheet.create({
     marginTop: 40, 
     fontSize: 28,
     fontWeight: "500",
-    color: "#000",
+    color: "#ffffffff",
   },
   scrollContainer: { 
     padding: 15, 
@@ -83,7 +86,7 @@ const styles = StyleSheet.create({
     padding: 10 
   },
   cardTitle: {
-    backgroundColor: "rgba(255,255,255,0.7)",
+    backgroundColor: "#ffffffb3",
     paddingHorizontal: 8,
     paddingVertical: 4,
     borderRadius: 6,

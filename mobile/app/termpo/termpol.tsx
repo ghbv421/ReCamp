@@ -6,7 +6,7 @@
     ImageBackground,
     } from "react-native";
 
-const Termpo = () => {
+const Termpol = () => {
   return (
     <ImageBackground
       source={require("../../assets/images/dashboardbg.png")}
@@ -89,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Termpo;
+export default Termpol;

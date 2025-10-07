@@ -1,3 +1,4 @@
+
 import React from "react";
 import {
   View,
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "rgba(255,255,255,0.7)",
+    backgroundColor: "#ffffffb3",
     borderRadius: 15,
     padding: 18,
     marginBottom: 12,
