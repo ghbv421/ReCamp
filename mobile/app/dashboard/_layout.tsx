@@ -46,7 +46,7 @@ function AnimatedTabBarIcon({ name, color, size, focused }: any) {
   );
 }
 
-// 🔸 Custom Tab Bar
+// Custom Tab Bar
 function CustomTabBar({ state, navigation }: BottomTabBarProps) {
   const [tabBarWidth, setTabBarWidth] = useState(0);
   const translateX = useRef(new Animated.Value(0)).current;
@@ -80,7 +80,6 @@ function CustomTabBar({ state, navigation }: BottomTabBarProps) {
   return (
     <View style={styles.tabBarContainer}>
       <View style={styles.tabBar} onLayout={handleLayout}>
-        {/* Animated circle indicator */}
         {tabBarWidth > 0 && (
           <Animated.View
             style={[
@@ -156,8 +155,8 @@ export default function DashboardLayout() {
 
 const styles = StyleSheet.create({
   tabBarContainer: {
-    position: "absolute",  // float above the screen bottom
-    bottom: 20,            // distance from bottom
+    position: "absolute",
+    bottom: 20,            
     left: 16,
     right: 16,
     height: 70,

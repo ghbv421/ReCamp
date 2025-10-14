@@ -33,22 +33,22 @@ export default function Account() {
       <View style={styles.menuBox}>
         <TouchableOpacity style={styles.menuItem1}>
           <Link href="/profile/profiledetails">
-            <Text style={styles.menuText}> Profile Details</Text>
+            <Text style={styles.menuText}>Profile Details</Text>
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem2}>
-          <Link href="/transact/transacts">
-            <Text style={styles.menuText}> Transaction History</Text>
+          <Link href="/transact/transact">
+            <Text style={styles.menuText}>   Transaction History</Text>
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem3}>
           <Link href="/suggest/suggests">
-          <Text style={styles.menuText}>Suggestions</Text>
+          <Text style={styles.menuText}>   Suggestions</Text>
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem4}>
           <Link href="/termpo/termpol">
-          <Text style={styles.menuText}> Terms & Policy</Text>
+          <Text style={styles.menuText}>   Terms & Policy</Text>
           </Link>
         </TouchableOpacity>
       </View>
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   line: {
     marginTop: 8,
-    width: "100%",
+    width: 1,
     height: 1,
     backgroundColor: "#000",
   },
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     fontSize: 18,
     fontWeight: "500",
-    color: "#000",
+    color: "#ffecdbff",
   },
   logoutBtn: {
     marginTop: 40,
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   logoutText: {
-    color: "#000",
+    color: "#233d4d",
     fontWeight: "bold",
     fontSize: 16,
   },
