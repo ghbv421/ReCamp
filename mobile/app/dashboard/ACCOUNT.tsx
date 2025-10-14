@@ -1,5 +1,3 @@
-
-
 import {
   View,
   Text,
@@ -37,18 +35,18 @@ export default function Account() {
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem2}>
-          <Link href="/transact/transacts">
+          <Link href="/transact/transact">
             <Text style={styles.menuText}> Transaction History</Text>
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem3}>
           <Link href="/suggest/suggests">
-          <Text style={styles.menuText}>Suggestions</Text>
+            <Text style={styles.menuText}>Suggestions</Text>
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem4}>
           <Link href="/termpo/termpol">
-          <Text style={styles.menuText}> Terms & Policy</Text>
+            <Text style={styles.menuText}> Terms & Policy</Text>
           </Link>
         </TouchableOpacity>
       </View>
