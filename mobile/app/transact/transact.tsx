@@ -8,87 +8,60 @@ import {
   FlatList,
   Image,
   Modal,
-  Pressable,
   ScrollView,
-  ImageSourcePropType,
+  Pressable,
 } from "react-native";
 
-// 🧩 Define types for clarity
-type TransactionDetails = {
-  [key: string]: string | number;
-};
-
-type TransactionItem = {
-  id: string;
-  title: string;
-  time: string;
-  image: ImageSourcePropType;
-  details: TransactionDetails;
-};
-
 export default function Transact() {
-  // --- SAMPLE DATA ---
-  const pastTransactions: TransactionItem[] = [
-    {
-      id: "1",
-      title: "Camp Hapitanan — Checked Out",
-      time: "09-30-25 • 9:46 AM",
-      image: require("../../assets/images/Hapitanan.png"),
-      details: {
-        "Transaction ID": "TRX-20251004-001",
-        "Reservation Date": "October 4, 2025",
-        Customer: "Juan Dela Cruz",
-        Contact: "+63 912 345 6789",
-        Campsite: "Camp H – Site A",
-        "Stay Type": "Overnight (2D1N)",
-        "Check-in": "Oct 10, 2025 – 04:00 PM",
-        "Check-out": "Oct 11, 2025 – 01:00 PM",
-        Guests: 5,
-        "Payment Method": "GCash",
-        "Amount Paid": "₱3,500.00",
-        Status: "Confirmed",
+  // --- Sample data ---
+  const transactions = {
+    Past: [
+      {
+        title: "Camp Hapitanan — Checked Out",
+        time: "09-30-25 • 9:46 AM",
+        image: require("../../assets/images/Hapitanan.png"),
+        details: {
+          "Reservation Date": "October 4, 2025",
+          Customer: "Juan Dela Cruz",
+          Contact: "+63 912 345 6789",
+          "Stay Duration": "Overnight (2D1N)",
+          "Check-in": "Oct 10, 2025 – 04:00 PM",
+          "Check-out": "Oct 11, 2025 – 01:00 PM",
+          Guests: 5,
+          "Pay at Counter": "GCash",
+          "Transaction ID": "0001ZXDVMLAZX084",
+          Status: "Confirmed",
+        },
       },
-    },
-  ];
-
-  const cancelledTransactions: TransactionItem[] = [
-    {
-      id: "2",
-      title: "Little Baguio — Booking Cancelled",
-      time: "09-29-25 • 2:30 PM",
-      image: require("../../assets/images/Lilbaguio.png"),
-      details: {
-        Campsite: "Little Baguio",
-        Name: "Libby Manseguiao",
-        Email: "libgwaps@gmail.com",
-        "Contact Number": "123456789",
-        Address: "Haws ni crush",
-        "Date Issued": "09-30-25 • 9:46 AM",
-        "Date Cancelled": "09-30-25 • 9:46 AM",
-        Status: "Cancelled",
+    ],
+    Cancelled: [
+      {
+        title: "Little Baguio — Booking Cancelled",
+        time: "09-29-25 • 2:30 PM",
+        image: require("../../assets/images/Lilbaguio.png"),
+        details: {
+          "Reservation Date": "September 29, 2025",
+          Customer: "Libby Manseguiao",
+          Contact: "+63 123456789",
+          "Stay Duration": "2 Days 1 Night",
+          "Check-in": "Oct 10, 2025 – 04:00 PM",
+          "Check-out": "Oct 11, 2025 – 01:00 PM",
+          "Pay at Counter": "GCash",
+          "Transaction ID": "0002ZXDVMJHYZ932",
+          Status: "Cancelled",
+        },
       },
-    },
-  ];
-
-  // --- STATE ---
-  const [activeTab, setActiveTab] = useState<"Past" | "Cancelled">("Past");
-  const [selectedItem, setSelectedItem] = useState<TransactionItem | null>(null);
-  const [showModal, setShowModal] = useState(false);
-
-  // --- SELECT DATA BASED ON TAB ---
-  const data = activeTab === "Past" ? pastTransactions : cancelledTransactions;
-
-  // --- SHOW DETAILS ---
-  const openDetails = (item: TransactionItem) => {
-    setSelectedItem(item);
-    setShowModal(true);
+    ],
   };
 
-  // --- RENDER CARD (LIST ITEM) ---
-  const renderItem = ({ item }: { item: TransactionItem }) => (
-    <TouchableOpacity style={styles.card} onPress={() => openDetails(item)}>
-      <Image source={item.image} style={styles.icon} />
-      <View style={styles.cardText}>
+  const [activeTab, setActiveTab] = useState<"Past" | "Cancelled">("Past");
+  const [selectedItem, setSelectedItem] = useState<any>(null);
+
+  // Render each transaction
+  const renderItem = ({ item }: any) => (
+    <TouchableOpacity style={styles.card} onPress={() => setSelectedItem(item)}>
+      <Image source={item.image} style={styles.cardImage} />
+      <View>
         <Text
           style={[
             styles.cardTitle,
@@ -112,17 +85,19 @@ export default function Transact() {
   return (
     <ImageBackground
       source={require("../../assets/images/dashboardbg.png")}
-      style={styles.bg}
+      style={styles.background}
     >
-      <Text style={styles.title}>Transaction History</Text>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Transaction History</Text>
+      </View>
 
-      {/* --- TABS --- */}
-      <View style={styles.tabs}>
-        {["Past", "Cancelled"].map((tab) => (
+      {/* Tabs */}
+      <View style={styles.tabContainer}>
+        {(["Past", "Cancelled"] as const).map((tab) => (
           <TouchableOpacity
             key={tab}
             style={[styles.tab, activeTab === tab && styles.activeTab]}
-            onPress={() => setActiveTab(tab as "Past" | "Cancelled")}
+            onPress={() => setActiveTab(tab)}
           >
             <Text
               style={[
@@ -136,16 +111,16 @@ export default function Transact() {
         ))}
       </View>
 
-      {/* --- TRANSACTION LIST --- */}
+      {/* Transaction List */}
       <FlatList
-        data={data}
-        keyExtractor={(item) => item.id}
+        data={transactions[activeTab]}
+        keyExtractor={(_, i) => i.toString()}
         renderItem={renderItem}
         contentContainerStyle={styles.list}
       />
 
-      {/* --- MODAL FOR DETAILS --- */}
-      <Modal visible={showModal} animationType="slide" transparent>
+      {/* Modal */}
+      <Modal visible={!!selectedItem} animationType="slide" transparent>
         <View style={styles.overlay}>
           <View style={styles.modalBox}>
             {selectedItem && (
@@ -156,7 +131,6 @@ export default function Transact() {
                   resizeMode="cover"
                 />
                 <Text style={styles.modalTitle}>Transaction Details</Text>
-
                 {Object.entries(selectedItem.details).map(([key, value]) => (
                   <Text key={key} style={styles.detailText}>
                     <Text style={styles.label}>{key}: </Text>
@@ -165,10 +139,9 @@ export default function Transact() {
                 ))}
               </ScrollView>
             )}
-
             <Pressable
               style={styles.closeBtn}
-              onPress={() => setShowModal(false)}
+              onPress={() => setSelectedItem(null)}
             >
               <Text style={styles.closeText}>Close</Text>
             </Pressable>
@@ -178,49 +151,58 @@ export default function Transact() {
     </ImageBackground>
   );
 }
-// --- STYLES ---
-const styles = StyleSheet.create({
-  bg: { flex: 1 },
-  title: {
-    fontSize: 22,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginVertical: 55,
-    marginBottom: 25,
-  },
 
-  tabs: {
+const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: "cover",
+    alignItems: "center",
+  },
+  header: {
+    width: "100%",
+    paddingTop: 50,
+    alignItems: "center",
+  },
+  headerText: {
+    fontSize: 26,
+    fontWeight: "bold",
+    color: "#000",
+  },
+  line: {
+    marginTop: 8,
+    width: "30%",
+    height: 2,
+    backgroundColor: "#000",
+  },
+  tabContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    marginBottom: 15,
+    marginVertical: 15,
+    width: "90%",
   },
   tab: {
     flex: 1,
     alignItems: "center",
     paddingVertical: 10,
-    borderBottomWidth: 3,
+    borderBottomWidth: 2,
     borderBottomColor: "#ccc",
   },
   activeTab: { borderBottomColor: "#000" },
   tabText: { fontSize: 18, color: "#777" },
-  activeTabText: { fontWeight: "bold", color: "#000" },
-
-  list: { paddingHorizontal: 21, paddingBottom: 30 },
-
+  activeTabText: { color: "#000", fontWeight: "bold" },
+  list: { width: "90%" },
   card: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#ffffffb3",
-    borderRadius: 15,
-    padding: 12,
+    backgroundColor: "#ffffffcc",
+    borderRadius: 12,
+    padding: 10,
     marginBottom: 10,
   },
-  icon: { width: 60, height: 60, marginRight: 10, borderRadius: 10 },
-  cardText: { flex: 1 },
+  cardImage: { width: 60, height: 60, borderRadius: 10, marginRight: 10 },
   cardTitle: { fontSize: 15, fontWeight: "600", color: "#000" },
-  cardTime: { fontSize: 13, color: "#555", marginTop: 5 },
+  cardTime: { fontSize: 13, color: "#555" },
   cancelled: { color: "#888" },
-
   overlay: {
     flex: 1,
     backgroundColor: "#00000080",
@@ -247,12 +229,11 @@ const styles = StyleSheet.create({
   },
   detailText: { fontSize: 14, marginBottom: 6 },
   label: { fontWeight: "bold" },
-
   closeBtn: {
     marginTop: 15,
     backgroundColor: "#000",
-    borderRadius: 10,
-    padding: 10,
+    borderRadius: 8,
+    paddingVertical: 10,
   },
   closeText: {
     color: "#fff",
