@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   formBox: {
-    backgroundColor: "hsla(29, 52%, 21%, 0.40)",
+    backgroundColor: "#51351a66",
     marginHorizontal: 20,
     marginTop: 30,
     borderRadius: 15,
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#D9D9D9",
     flexDirection: "row",
     alignItems: "center",
-    borderRadius: 10,
+    borderRadius: 20,
     marginHorizontal: 30,
     elevation: 5,
     marginVertical: 10,
@@ -198,24 +198,21 @@ const styles = StyleSheet.create({
   },
 
   RegisterBtn: {
-    backgroundColor: "#44311A",
+    backgroundColor: "#ED8E45",
     borderWidth: 1,
-    borderColor: "white",
     marginHorizontal: 50,
     marginTop: 20,
-    borderRadius: 25,
+    borderRadius: 20,
     paddingVertical: 10,
     alignItems: "center",
     elevation: 5,
   },
 
   RegisterBtnText:{
-    color: "white",
+    color: "#000",
     fontSize: 18,
     fontWeight: "bold",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
+
   },
 
   HaveAcccontainer: {
@@ -226,18 +223,12 @@ const styles = StyleSheet.create({
 
   HaveAccText:{
     color: "white",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
   },
 
   HaveAccTextlink: {
     fontSize: 14,
     fontWeight: "bold",
     color: "#187bcd",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
 },
 
 });

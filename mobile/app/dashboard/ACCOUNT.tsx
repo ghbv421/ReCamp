@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React from "react";
 import { Link } from "expo-router";
-
+// --- MAIN COMPONENT ---
 export default function Account() {
   return (
     <ImageBackground
@@ -17,7 +17,7 @@ export default function Account() {
     >
       <View style={styles.header}>
         <Text style={styles.headerText}>My Account</Text>
-        <View style={styles.line} />
+        <View style={styles.headerLine} />
       </View>
 
       <View style={styles.profileSection}>
@@ -35,8 +35,8 @@ export default function Account() {
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem2}>
-          <Link href="/transact/transact">
-            <Text style={styles.menuText}> Transaction History</Text>
+          <Link href="/transact/transacts">
+            <Text style={styles.menuText}>Transaction History</Text>
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem3}>
@@ -46,20 +46,21 @@ export default function Account() {
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem4}>
           <Link href="/termpo/termpol">
-            <Text style={styles.menuText}> Terms & Policy</Text>
+            <Text style={styles.menuText}>Terms & Policy</Text>
           </Link>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.logoutBtn}>
+        <Link href="/login">
+          <Text style={styles.logoutText}>LOGOUT</Text>
+        </Link>
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.logoutBtn}>
-        <Link href="/login">
-          <Text style={styles.logoutText}>Logout</Text>
-        </Link>
-      </TouchableOpacity>
+      
     </ImageBackground>
   );
 }
-
+// --- TAB BAR COMPONENT ---
 const styles = StyleSheet.create({
   background: {
     flex: 1,
@@ -72,16 +73,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   headerText: {
-    fontSize: 28,
-    fontWeight: "bold",
+    fontSize: 32,
+    fontWeight: "900",
     color: "#000",
   },
-  line: {
-    marginTop: 8,
-    width: 1,
-    height: 1,
-    backgroundColor: "#000",
-  },
+  headerLine: {
+  width: "100%",
+  height: 1,
+  backgroundColor: "#000",
+  marginTop: 15,
+},
+
   profileSection: {
     marginTop: 20,
     alignItems: "center",
@@ -101,39 +103,34 @@ const styles = StyleSheet.create({
   menuBox: {
     width: "90%",
     backgroundColor: "#8b4513cc",
+    borderBlockColor: "#000",
+    borderWidth: 1,
     borderRadius: 10,
     marginTop: 40,
     padding: 10,
   },
 
-  menuItem: {
-    marginTop: 10,
-    marginBottom: 10,
-    padding: 15,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-  },
   menuItem1: {
-    marginBottom: 2,
-    padding: 18,
+    marginTop: 2,
+    padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
   },
   menuItem2: {
-    marginTop: 15,
-    padding: 5,
+    marginTop: 2,
+    padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
   },
   menuItem3: {
-    marginTop: 15,
-    padding: 5,
+    marginTop: 2,
+    padding: 20,
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
   },
   menuItem4: {
-    marginTop: 15,
-    padding: 5,
+    marginTop: 2,
+    padding: 20,
   },
   menuText: {
     marginBottom: 15,
@@ -142,15 +139,21 @@ const styles = StyleSheet.create({
     color: "#ffecdbff",
   },
   logoutBtn: {
-    marginTop: 40,
+    marginTop: 50,
+    marginLeft  : 60,
+    marginRight : 60,
     backgroundColor: "#ED8E45",
-    paddingVertical: 12,
-    paddingHorizontal: 80,
-    borderRadius: 8,
+    paddingVertical: 14,
+    alignItems: "center",
+    borderRadius: 10,
   },
   logoutText: {
-    color: "#233d4d",
+    color: "#000000ff",
+    textShadowColor: "#FDD384",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 1,
     fontWeight: "bold",
     fontSize: 16,
+    letterSpacing: 1,
   },
 });

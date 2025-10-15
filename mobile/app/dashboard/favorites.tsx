@@ -1,7 +1,19 @@
-import { View, Text, StyleSheet, ImageBackground, ScrollView, Image } from "react-native";
-import React from "react";
+import React, { useRef } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  ImageBackground,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  Animated,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { useFavorites } from "../context/FavoritesContext";
+import { useRouter } from "expo-router";
 
+// --- SAMPLE CAMP DATA ---
 const camps = [
   { id: "cowboys", title: "Cowboy’s Camp", image: require("../../assets/images/Cowboys.png") },
   { id: "agos", title: "Camp Agos River", image: require("../../assets/images/Agos.png") },
@@ -12,7 +24,9 @@ const camps = [
 ];
 
 export default function Favorites() {
-  const { favorites } = useFavorites();
+  const { favorites, toggleFavorite } = useFavorites();
+  const router = useRouter();
+
   const favoriteCamps = camps.filter((camp) => favorites[camp.id]);
 
   return (
@@ -20,28 +34,73 @@ export default function Favorites() {
       source={require("../../assets/images/dashboardbg.png")}
       style={styles.background}
     >
-      {/* Header */}
+      {/* HEADER */}
       <View style={styles.header}>
         <Image source={require("../../assets/images/logoheader2.png")} style={styles.logo} />
         <Text style={styles.recampText}>RE CAMP</Text>
       </View>
 
+      {/* FAVORITES LIST */}
       <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
         {favoriteCamps.length === 0 ? (
-          <Text style={styles.noFav}>No favorites yet </Text>
+          <Text style={styles.noFav}>No favorites yet</Text>
         ) : (
-          favoriteCamps.map((camp) => (
-            <View key={camp.id} style={styles.box}>
-              <Image source={camp.image} style={styles.boxImage} />
-              <Text style={styles.boxText}>{camp.title}</Text>
-            </View>
-          ))
+          favoriteCamps.map((camp) => <FavoriteCard key={camp.id} camp={camp} />)
         )}
       </ScrollView>
     </ImageBackground>
   );
 }
 
+// --- INDIVIDUAL FAVORITE CARD (WITH FADE ANIMATION) ---
+function FavoriteCard({ camp }: { camp: any }) {
+  const { favorites, toggleFavorite } = useFavorites();
+  const router = useRouter();
+
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+
+  const handleUnfavorite = () => {
+    // Animate fade-out before removing
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => {
+      toggleFavorite(camp.id);
+    });
+  };
+
+  return (
+    <Animated.View style={{ opacity: fadeAnim }}>
+      <TouchableOpacity
+        style={styles.cardBox}
+        onPress={() =>
+          router.push({
+            pathname: `/camps/campdetails`,
+            params: { id: camp.id, title: camp.title },
+          })
+        }
+      >
+        <ImageBackground
+          source={camp.image}
+          style={styles.cardImage}
+          imageStyle={{ borderRadius: 12 }}
+        >
+          <Text style={styles.cardTitle}>{camp.title}</Text>
+          <TouchableOpacity style={styles.heartIcon} onPress={handleUnfavorite}>
+            <Ionicons
+              name={favorites[camp.id] ? "heart" : "heart-outline"}
+              size={26}
+              color="red"
+            />
+          </TouchableOpacity>
+        </ImageBackground>
+      </TouchableOpacity>
+    </Animated.View>
+  );
+}
+
+// --- STYLES ---
 const styles = StyleSheet.create({
   background: { flex: 1 },
 
@@ -61,29 +120,44 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   recampText: {
-    marginTop: 40, 
+    marginTop: 40,
     fontSize: 28,
     fontWeight: "500",
     color: "#ffffffff",
   },
 
-  scrollContainer: { 
-    padding: 20, 
-    alignItems: "center" 
+  scrollContainer: {
+    padding: 15,
+    paddingBottom: 100,
   },
-  noFav: { 
-    fontSize: 18, 
-    color: "#555", 
-    marginTop: 50 
+  noFav: {
+    fontSize: 18,
+    color: "#555",
+    marginTop: 50,
+    textAlign: "center",
   },
-  box: {
-    width: "90%",
+  cardBox: {
     backgroundColor: "#D2A679",
-    borderRadius: 10,
+    borderRadius: 16,
+    padding: 6,
     marginBottom: 15,
-    alignItems: "center",
+  },
+  cardImage: {
+    height: 180,
+    justifyContent: "flex-end",
     padding: 10,
   },
-  boxImage: { width: "100%", height: 120, borderRadius: 8, marginBottom: 8 },
-  boxText: { fontSize: 18, fontWeight: "bold", color: "#000" },
+  cardTitle: {
+    backgroundColor: "#ffffffb3",
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 6,
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  heartIcon: {
+    position: "absolute",
+    bottom: 10,
+    right: 10,
+  },
 });

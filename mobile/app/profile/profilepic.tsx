@@ -13,14 +13,14 @@ export default function ProfilePic() {
   const handleSave = () => {
     navigation.goBack();
   };
-
+// --- MAIN COMPONENT ---
   return (
     <ImageBackground
       source={require("../../assets/images/dashboardbg.png")}
       style={styles.background}
     >
       <View style={styles.container}>
-        {/* Profile Icon */}
+        // Profile Icon
         <Ionicons
           name="person-circle-outline"
           size={140}
@@ -28,7 +28,7 @@ export default function ProfilePic() {
           style={styles.profileIcon}
         />
 
-        {/* Options Box */}
+        // Options Box
         <View style={styles.box}>
           <TouchableOpacity style={styles.option}>
             <Ionicons name="image-outline" size={20} color="black" />
@@ -41,7 +41,7 @@ export default function ProfilePic() {
           </TouchableOpacity>
         </View>
 
-        {/* Save Button */}
+        // Save Button
         <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
           <Text style={styles.saveText}>Save</Text>
         </TouchableOpacity>
@@ -49,7 +49,7 @@ export default function ProfilePic() {
     </ImageBackground>
   );
 }
-
+// --- STYLES ---
 const styles = StyleSheet.create({
   background: {
     flex: 1,

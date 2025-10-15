@@ -98,24 +98,19 @@ const styles = StyleSheet.create({
   },
 
   nextBtn: {
-    backgroundColor: "#44311A",
-    borderWidth: 1,
-    borderColor: "white",
+    backgroundColor: "#ED8E45",
     marginHorizontal: 30,
     marginTop: 20,
-    borderRadius: 25,
+    borderRadius: 20,
     paddingVertical: 10,
     alignItems: "center",
     elevation: 5,
   },
 
   nextBtnText: {
-    color: "white",
+    color: "#000",
     fontSize: 18,
     fontWeight: "bold",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
   },
 
   resendcontainer: {
@@ -128,9 +123,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     color: "#187bcd",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
+
   },
 });
 

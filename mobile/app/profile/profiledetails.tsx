@@ -14,7 +14,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 
 export default function ProfileDetails() {
   const router = useRouter(); // ✅ create router instance
-
+//  --- MAIN COMPONENT ---
   return (
     <ImageBackground
       source={require("../../assets/images/dashboardbg.png")}
@@ -70,7 +70,7 @@ export default function ProfileDetails() {
     </ImageBackground>
   );
 }
-
+// --- STYLES ---
 const styles = StyleSheet.create({
   background: {
     flex: 1,

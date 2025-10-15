@@ -14,7 +14,7 @@ import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 const INDICATOR_SIZE = 60;
 const ICON_LIFT = -22;
 const CIRCLE_LIFT = -28;
-
+// Animated Icon Component
 function AnimatedTabBarIcon({ name, color, size, focused }: any) {
   const scale = useRef(new Animated.Value(1)).current;
   const translateY = useRef(new Animated.Value(0)).current;
@@ -152,7 +152,7 @@ export default function DashboardLayout() {
     </Tabs>
   );
 }
-
+// --- STYLES ---
 const styles = StyleSheet.create({
   tabBarContainer: {
     position: "absolute",

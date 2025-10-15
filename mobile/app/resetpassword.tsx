@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#D9D9D9",
     flexDirection: "row",
     alignItems: "center",
-    borderRadius: 10,
+    borderRadius: 20,
     marginHorizontal: 30,
     elevation: 5,
     marginVertical: 10,
@@ -118,24 +118,19 @@ const styles = StyleSheet.create({
   },
 
   SendBtn: {
-    backgroundColor: "#44311A",
-    borderWidth: 1,
-    borderColor: "white",
+    backgroundColor: "#ED8E45",
     marginHorizontal: 30,
     marginTop: 50,
-    borderRadius: 25,
+    borderRadius: 20,
     paddingVertical: 10,
     alignItems: "center",
     elevation: 5,
   },
 
   SendBtnText: {
-    color: "white",
+    color: "#000",
     fontSize: 18,
     fontWeight: "bold",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
   },
 
   remembercontainer: {
@@ -146,18 +141,12 @@ const styles = StyleSheet.create({
 
   rememberText: {
     color: "white",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
   },
 
   rememberTextlink: {
     fontSize: 14,
     fontWeight: "bold",
     color: "#187bcd",
-    textShadowColor: "#0b0808ff",
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
   },
 });
 

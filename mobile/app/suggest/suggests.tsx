@@ -1,4 +1,4 @@
-import React from "react";
+import { Link } from "expo-router";
 import {
   View,
   Text,
@@ -25,7 +25,9 @@ const Suggests = () => {
         />
 
         <TouchableOpacity style={styles.button}>
+          <Link href="/dashboard/account">
           <Text style={styles.buttonText}>Submit</Text>
+          </Link>
         </TouchableOpacity>
       </View>
     </ImageBackground>
