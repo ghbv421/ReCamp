@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
   reserveButton: {
     backgroundColor: "#f28c28",
     marginTop: 20, // smaller spacing
-    marginBottom: 0, // removed bottom margin
+    marginBottom: 40, // removed bottom margin
     paddingVertical: 18,
     marginHorizontal: 80,
     borderRadius: 30,

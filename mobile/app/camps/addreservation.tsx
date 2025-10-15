@@ -41,11 +41,11 @@ export default function AddReservation() {
   const [guest, setGuest] = useState(params.guest || "");
   const [showGuestDropdown, setShowGuestDropdown] = useState(false);
 
-  const [payment, setPayment] = useState(params.payment || "Gcash");
+  const [payment, setPayment] = useState(params.payment || "Select Payment");
   const [showPaymentDropdown, setShowPaymentDropdown] = useState(false);
 
   const guestOptions = [...Array(50)].map((_, i) => `${i + 1}`);
-  const paymentOptions = ["Gcash", "Cash", "Credit Card"];
+  const paymentOptions = ["Gcash", "Cash"];
 
   const formatTime = (date: Date) =>
     date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: true });
