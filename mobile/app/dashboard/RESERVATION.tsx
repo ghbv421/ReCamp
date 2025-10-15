@@ -124,10 +124,7 @@ export default function Reservation() {
   );
 
   return (
-    <ImageBackground
-      source={require("../../assets/images/dashboardbg.png")}
-      style={styles.background}
-    >
+    <ImageBackground source={require("../../assets/images/dashboardbg.png")} style={styles.background}>
       <View style={styles.header}>
         <Text style={styles.title}>Reservation</Text>
 
