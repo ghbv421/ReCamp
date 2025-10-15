@@ -31,6 +31,7 @@ export default function CampDetails() {
 
   const descriptions: { [key: string]: any } = {
   cowboys: {
+<<<<<<< Updated upstream
     location:
       "Cowboy’s Camp is located in Barangay Kili-og, Libona, Bukidnon, perched atop Mt. Kitagas. Surrounded by rolling mountains and lush greenery, the camp offers a peaceful escape from city life. The area is known for its cool climate and scenic views, making it ideal for both day trips and overnight stays.",
     highlights:
@@ -110,6 +111,51 @@ export default function CampDetails() {
 };
 
 
+=======
+    location: "Cowboy’s Camp is located in Barangay Kili-og, Libona, Bukidnon — at the top of Mt. Kitagas, a scenic mountain camp destination about 40 minutes from CDO.",
+    highlights: "Expect panoramic views of rolling mountains and cool weather. Perfect for nature lovers. There’s a small shelter at the camp.",
+    fees: "Entrance Fee: ₱20 per person\nOvernight Fee: ₱50 per person\nNo corkage fee mentioned.",
+    howToGetThere: "Jump-off point: Kili-og Elementary School. 1-hour hike to the camp. Coordinate with Barangay Council.",
+    considerations: "Weather changes quickly. Bring your own tent, food, and essentials. Trekking is moderately challenging.",
+  },
+  agos: {
+    location: "Agos Camp is near a flowing river in Libona, Bukidnon. It’s a cool and relaxing spot for families.",
+    highlights: "River swimming, picnic spots, and mountain views. Ideal for campers seeking water-based activities.",
+    fees: "Entrance Fee: ₱15 per person\nOvernight Fee: ₱40 per person\nNo corkage fee mentioned.",
+    howToGetThere: "Jump-off: Agos Barangay Hall. 30-min hike along the riverside trail.",
+    considerations: "Bring water shoes and camping gear. River currents can be strong during rainy season.",
+  },
+  hapitanan: {
+    location: "Hapitanan Camp is on a hilltop in Malaybalay, Bukidnon.",
+    highlights: "Sunrise view, trekking trails, and stargazing at night.",
+    fees: "Entrance Fee: ₱25 per person\nOvernight Fee: ₱60 per person.",
+    howToGetThere: "Jump-off: Barangay Malaybalay Center. 45-min uphill trek.",
+    considerations: "Steep trails. Prepare with hiking shoes and supplies.",
+  },
+  zion: {
+    location: "Zion Camp offers a serene forest experience in Bukidnon.",
+    highlights: "Camping, hiking, and nature walks. Calm atmosphere for meditation.",
+    fees: "Entrance Fee: ₱30 per person\nOvernight Fee: ₱70 per person.",
+    howToGetThere: "Jump-off: Zion Forest Trailhead. 1-hour hike.",
+    considerations: "Forest terrain, prepare for insects and uneven ground.",
+  },
+  lilbaguio: {
+    location: "Lil Baguio Camp is located in cooler highland areas of Bukidnon.",
+    highlights: "Cool breeze, panoramic hills, and camping facilities.",
+    fees: "Entrance Fee: ₱20 per person\nOvernight Fee: ₱50 per person.",
+    howToGetThere: "Jump-off: Barangay Lil Baguio Center. 40-min hike.",
+    considerations: "Cold nights, bring warm clothing and camping gear.",
+  },
+  kauswagan: {
+    location: "Kauswagan Camp is a riverside campground in Bukidnon.",
+    highlights: "River activities, camping, and nature immersion.",
+    fees: "Entrance Fee: ₱15 per person\nOvernight Fee: ₱45 per person.",
+    howToGetThere: "Jump-off: Barangay Kauswagan Hall. 35-min riverside trail.",
+    considerations: "River currents and mosquitoes. Bring proper gear.",
+  },
+};
+
+>>>>>>> Stashed changes
   const campImage = imageMap[campId!] || require("../../assets/images/default.png");
   const campDescription = descriptions[campId!] || {
     location: "No information available.",
@@ -185,6 +231,10 @@ export default function CampDetails() {
           >
             <Text style={styles.reserveText}>Add Reservation</Text>
           </TouchableOpacity>
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
         </View>
       </ScrollView>
     </ImageBackground>
@@ -194,7 +244,11 @@ export default function CampDetails() {
 // --- STYLES ---
 const styles = StyleSheet.create({
   background: { flex: 1 },
+<<<<<<< Updated upstream
   scrollContainer: { alignItems: "center" }, // removed paddingBottom
+=======
+  scrollContainer: { alignItems: "center", paddingBottom: 20 },
+>>>>>>> Stashed changes
   imageContainer: { width: "110%", position: "relative" },
   headerImage: { width: "100%", height: 200, resizeMode: "cover" },
   backButton: {
@@ -215,17 +269,22 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     borderRadius: 6,
   },
+<<<<<<< Updated upstream
   titleText: {
     fontSize: 20,
     fontWeight: "bold",
     color: "#000",
   },
+=======
+  titleText: { fontSize: 20, fontWeight: "bold", color: "#000" },
+>>>>>>> Stashed changes
   infoContainer: {
     width: "100%",
     backgroundColor: "#1a1a1ae6",
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     padding: 20,
+<<<<<<< Updated upstream
     paddingBottom: 0, // removed extra bottom padding
     marginBottom: 0,
   },
@@ -250,14 +309,29 @@ const styles = StyleSheet.create({
     backgroundColor: "#f28c28",
     marginTop: 20, // smaller spacing
     marginBottom: 0, // removed bottom margin
+=======
+    marginBottom: 0,
+  },
+  sectionTitle: { color: "#f28c28", fontWeight: "bold", fontSize: 16, marginTop: 10, marginBottom: 4 },
+  sectionText: { color: "#fff", fontSize: 14, lineHeight: 20 },
+  sectionDivider: { color: "#aaa", textAlign: "center", marginVertical: 10 },
+  reserveButton: {
+    backgroundColor: "#f28c28",
+    marginTop: 40,
+    marginBottom: 20,
+>>>>>>> Stashed changes
     paddingVertical: 18,
     marginHorizontal: 80,
     borderRadius: 30,
     alignItems: "center",
   },
+<<<<<<< Updated upstream
   reserveText: {
     color: "#fff",
     fontWeight: "bold",
     fontSize: 16,
   },
+=======
+  reserveText: { color: "#fff", fontWeight: "bold", fontSize: 16 },
+>>>>>>> Stashed changes
 });

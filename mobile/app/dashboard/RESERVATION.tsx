@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useState, useCallback } from "react";
 import {
   View,
@@ -119,6 +120,42 @@ export default function Reservation() {
             ? `${item.checkInTime} - ${item.checkOutTime}`
             : "No date info"}
         </Text>
+=======
+import React, { useState, useEffect } from "react";
+import { View, Text, FlatList, TouchableOpacity, Image, ImageBackground, Modal, StyleSheet, ScrollView } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+export default function Reservation() {
+  const [selectedItem, setSelectedItem] = useState<any>(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [data, setData] = useState<any[]>([]);
+
+  useEffect(() => {
+    const loadReservations = async () => {
+      try {
+        const stored = await AsyncStorage.getItem("@reservations");
+        if (stored) setData(JSON.parse(stored));
+      } catch (e) {
+        console.log("Error loading reservations:", e);
+      }
+    };
+    loadReservations();
+  }, []);
+
+  const cancelReservation = async (id: string) => {
+    const updated = data.filter((item) => item.id !== id);
+    setData(updated);
+    await AsyncStorage.setItem("@reservations", JSON.stringify(updated));
+    setModalVisible(false);
+  };
+
+  const renderItem = ({ item }: { item: any }) => (
+    <TouchableOpacity style={styles.card} onPress={() => { setSelectedItem(item); setModalVisible(true); }}>
+      <Image source={item.image} style={styles.icon} />
+      <View style={styles.cardTextContainer}>
+        <Text style={styles.cardTitle}>{item.title}</Text>
+        <Text style={styles.cardSubtitle}>{item.reservationDate || "No Date"}</Text>
+>>>>>>> Stashed changes
       </View>
     </TouchableOpacity>
   );
@@ -126,6 +163,7 @@ export default function Reservation() {
   return (
     <ImageBackground source={require("../../assets/images/dashboardbg.png")} style={styles.background}>
       <View style={styles.header}>
+<<<<<<< Updated upstream
         <Text style={styles.title}>Reservation</Text>
 
         {/* Upcoming tab only */}
@@ -150,6 +188,9 @@ export default function Reservation() {
             />
           </TouchableOpacity>
         </View>
+=======
+        <Text style={styles.title}>Reservations</Text>
+>>>>>>> Stashed changes
       </View>
 
       <FlatList
@@ -157,12 +198,17 @@ export default function Reservation() {
         keyExtractor={(item) => item.transactionId}
         renderItem={renderItem}
         contentContainerStyle={styles.listContainer}
+<<<<<<< Updated upstream
         ListEmptyComponent={
           <Text style={styles.emptyText}>No reservations yet.</Text>
         }
       />
 
       {/* Modal */}
+=======
+      />
+
+>>>>>>> Stashed changes
       <Modal
         transparent
         visible={modalVisible}
@@ -188,13 +234,18 @@ export default function Reservation() {
                     Payment: selectedItem.payment,
                   }).map(([label, value]) => (
                     <Text key={label} style={styles.infoText}>
+<<<<<<< Updated upstream
                       <Text style={styles.label}>{label}: </Text>
                       {value || "N/A"}
+=======
+                      <Text style={styles.label}>{label}: </Text>{value || "N/A"}
+>>>>>>> Stashed changes
                     </Text>
                   ))}
                 </View>
 
                 <View style={styles.modalButtons}>
+<<<<<<< Updated upstream
                   <TouchableOpacity
                     style={[styles.modalButton, styles.closeButton]}
                     onPress={() => setModalVisible(false)}
@@ -207,6 +258,13 @@ export default function Reservation() {
                     onPress={() => cancelReservation(selectedItem)}
                   >
                     <Text style={styles.btnText}>Cancel Reservation</Text>
+=======
+                  <TouchableOpacity style={styles.closeBtn} onPress={() => setModalVisible(false)}>
+                    <Text style={styles.btnText}>Close</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.cancelBtn} onPress={() => cancelReservation(selectedItem.id)}>
+                    <Text style={styles.btnText}>Cancel</Text>
+>>>>>>> Stashed changes
                   </TouchableOpacity>
                 </View>
               </ScrollView>
@@ -220,6 +278,7 @@ export default function Reservation() {
 
 const styles = StyleSheet.create({
   background: { flex: 1 },
+<<<<<<< Updated upstream
   header: { paddingTop: 50, paddingBottom: 10, alignItems: "center" },
   title: { fontSize: 28, fontWeight: "600", color: "#000" },
 
@@ -318,4 +377,25 @@ const styles = StyleSheet.create({
   closeButton: { backgroundColor: "#E38B29" },
   cancelButton: { backgroundColor: "#C75B12" },
   btnText: { color: "#fff", fontWeight: "600", fontSize: 15 },
+=======
+  header: { paddingTop: 50, paddingBottom: 15, alignItems: "center" },
+  title: { fontSize: 28, fontWeight: "600", color: "#000" },
+  listContainer: { paddingHorizontal: 20, paddingBottom: 20 },
+  card: { flexDirection: "row", alignItems: "center", backgroundColor: "#ffffffb3", borderRadius: 15, padding: 18, marginBottom: 12 },
+  icon: { width: 70, height: 70, marginRight: 18, borderRadius: 10 },
+  cardTextContainer: { flex: 1 },
+  cardTitle: { fontSize: 21, fontWeight: "600", color: "#000" },
+  cardSubtitle: { fontSize: 16, color: "#555", marginTop: 3 },
+  modalOverlay: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#00000099" },
+  modalContainer: { width: "90%", backgroundColor: "#ffffffcc", borderRadius: 24, padding: 15 },
+  modalImage: { width: "100%", height: 200, borderRadius: 15, marginBottom: 10 },
+  modalTitle: { fontSize: 22, fontWeight: "700", color: "#000", marginBottom: 10 },
+  modalContent: { width: "100%", borderRadius: 15, padding: 15, marginBottom: 15 },
+  label: { fontWeight: "700", color: "#000" },
+  infoText: { color: "#000", fontSize: 16, marginBottom: 6 },
+  modalButtons: { flexDirection: "row", justifyContent: "space-between", width: "100%", marginTop: 10 },
+  closeBtn: { flex: 1, backgroundColor: "#E38B29", padding: 10, borderRadius: 20, alignItems: "center", marginRight: 10 },
+  cancelBtn: { flex: 1, backgroundColor: "#C75B12", padding: 10, borderRadius: 20, alignItems: "center" },
+  btnText: { color: "#fff", fontWeight: "600" },
+>>>>>>> Stashed changes
 });

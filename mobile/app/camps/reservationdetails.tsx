@@ -1,11 +1,18 @@
+<<<<<<< Updated upstream
 import React, { useState } from "react";
+=======
+import React, { useEffect, useState } from "react";
+>>>>>>> Stashed changes
 import {
   View,
   Text,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+<<<<<<< Updated upstream
   Image,
+=======
+>>>>>>> Stashed changes
   ImageBackground,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -14,6 +21,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function ReservationDetails() {
   const router = useRouter();
+<<<<<<< Updated upstream
   const params = useLocalSearchParams() as any;
 
   // Use static reservation data passed via params
@@ -52,13 +60,67 @@ export default function ReservationDetails() {
     }
   };
 
+=======
+  const params = useLocalSearchParams() as {
+    id?: string;
+    title?: string;
+    image?: any; // keep image here for saving
+    reservationDate?: string;
+    customer?: string;
+    contact?: string;
+    stayDuration?: string;
+    checkInTime?: string;
+    checkOutTime?: string;
+    guest?: string;
+    payment?: string;
+  };
+
+  const [reservations, setReservations] = useState<any[]>([]);
+
+  useEffect(() => {
+    const saveReservation = async () => {
+      try {
+        const stored = await AsyncStorage.getItem("@reservations");
+        const existing = stored ? JSON.parse(stored) : [];
+
+        // Save both title and image
+        const newReservation = {
+          id: params.id || Date.now().toString(),
+          title: params.title,      // Camp name
+          image: params.image,      // Camp image for cards
+          reservationDate: params.reservationDate,
+          customer: params.customer,
+          contact: params.contact,
+          stayDuration: params.stayDuration,
+          checkInTime: params.checkInTime,
+          checkOutTime: params.checkOutTime,
+          guest: params.guest,
+          payment: params.payment,
+        };
+
+        const updated = [...existing, newReservation];
+
+        setReservations(updated);
+        await AsyncStorage.setItem("@reservations", JSON.stringify(updated));
+      } catch (e) {
+        console.log("Error saving reservation:", e);
+      }
+    };
+
+    saveReservation();
+  }, []);
+
+>>>>>>> Stashed changes
   return (
     <ImageBackground
       source={require("../../assets/images/dashboardbg.png")}
       style={styles.background}
     >
       <ScrollView contentContainerStyle={styles.container}>
+<<<<<<< Updated upstream
         {/* Back Button */}
+=======
+>>>>>>> Stashed changes
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => router.back()}
@@ -68,6 +130,7 @@ export default function ReservationDetails() {
 
         <Text style={styles.header}>Reservation Details</Text>
 
+<<<<<<< Updated upstream
         <View style={styles.card}>
           {/* Floating Pencil Icon */}
           <TouchableOpacity
@@ -83,10 +146,16 @@ export default function ReservationDetails() {
           </TouchableOpacity>
 
           <Text style={styles.campTitle}>{reservation.title}</Text>
+=======
+        {/* Show only camp name */}
+        <View style={styles.card}>
+          <Text style={styles.campTitle}>{params.title}</Text>
+>>>>>>> Stashed changes
 
           <View style={styles.info}>
             <Text style={styles.infoText}>
               <Text style={styles.label}>Reservation Date: </Text>
+<<<<<<< Updated upstream
               {reservation.reservationDate || "N/A"}
             </Text>
             <Text style={styles.infoText}>
@@ -121,6 +190,44 @@ export default function ReservationDetails() {
 
           {/* Done Button */}
           <TouchableOpacity style={styles.doneButton} onPress={handleDone}>
+=======
+              {params.reservationDate}
+            </Text>
+            <Text style={styles.infoText}>
+              <Text style={styles.label}>Customer: </Text>
+              {params.customer}
+            </Text>
+            <Text style={styles.infoText}>
+              <Text style={styles.label}>Contact: </Text>
+              {params.contact}
+            </Text>
+            <Text style={styles.infoText}>
+              <Text style={styles.label}>Stay Duration: </Text>
+              {params.stayDuration}
+            </Text>
+            <Text style={styles.infoText}>
+              <Text style={styles.label}>Check-In: </Text>
+              {params.checkInTime}
+            </Text>
+            <Text style={styles.infoText}>
+              <Text style={styles.label}>Check-Out: </Text>
+              {params.checkOutTime}
+            </Text>
+            <Text style={styles.infoText}>
+              <Text style={styles.label}>Guest(s): </Text>
+              {params.guest}
+            </Text>
+            <Text style={styles.infoText}>
+              <Text style={styles.label}>Payment: </Text>
+              {params.payment}
+            </Text>
+          </View>
+
+          <TouchableOpacity
+            style={styles.doneButton}
+            onPress={() => router.push("/dashboard/reservation")}
+          >
+>>>>>>> Stashed changes
             <Text style={styles.doneText}>Done</Text>
           </TouchableOpacity>
         </View>
@@ -134,7 +241,11 @@ const styles = StyleSheet.create({
   container: { padding: 20, paddingBottom: 40 },
   backButton: {
     position: "absolute",
+<<<<<<< Updated upstream
     top: 70,
+=======
+    top: 50,
+>>>>>>> Stashed changes
     left: 25,
     zIndex: 2,
     backgroundColor: "#00000060",
@@ -142,13 +253,17 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   header: {
+<<<<<<< Updated upstream
     marginTop: 50,
+=======
+>>>>>>> Stashed changes
     textAlign: "center",
     fontSize: 26,
     fontWeight: "bold",
     marginVertical: 20,
     color: "#000",
   },
+<<<<<<< Updated upstream
   card: {
     backgroundColor: "#ffffffcc",
     borderRadius: 20,
@@ -162,6 +277,11 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   info: { marginTop: 50 },
+=======
+  card: { backgroundColor: "#ffffffcc", borderRadius: 20, padding: 20 },
+  campTitle: { fontSize: 22, fontWeight: "bold", textAlign: "center", marginBottom: 15 },
+  info: { marginTop: 10 },
+>>>>>>> Stashed changes
   infoText: { fontSize: 16, color: "#000", marginBottom: 6 },
   label: { fontWeight: "bold" },
   doneButton: {
@@ -172,6 +292,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   doneText: { color: "#fff", fontWeight: "bold", fontSize: 18 },
+<<<<<<< Updated upstream
   editIcon: {
     position: "absolute",
     top: 15,
@@ -181,4 +302,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     zIndex: 2,
   },
+=======
+>>>>>>> Stashed changes
 });
