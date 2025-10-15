@@ -35,11 +35,7 @@ export default function Account() {
           </Link>
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuItem2}>
-<<<<<<< Updated upstream
           <Link href="/transact/transacts">
-=======
-          <Link href="/transact/transact">
->>>>>>> Stashed changes
             <Text style={styles.menuText}>Transaction History</Text>
           </Link>
         </TouchableOpacity>
