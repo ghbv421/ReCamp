@@ -193,10 +193,21 @@ export default function CampDetails() {
 
 // --- STYLES ---
 const styles = StyleSheet.create({
-  background: { flex: 1 },
-  scrollContainer: { alignItems: "center" }, // removed paddingBottom
-  imageContainer: { width: "110%", position: "relative" },
-  headerImage: { width: "100%", height: 200, resizeMode: "cover" },
+  background: { 
+    flex: 1 
+  },
+  scrollContainer: {
+    alignItems: "center"
+  },
+  imageContainer: { 
+    width: "110%", 
+    position: "relative" 
+  },
+  headerImage: { 
+    width: "100%", 
+    height: 200, 
+    resizeMode: "cover" 
+  },
   backButton: {
     position: "absolute",
     top: 40,
@@ -226,8 +237,6 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     padding: 20,
-    paddingBottom: 0, // removed extra bottom padding
-    marginBottom: 0,
   },
   sectionTitle: {
     color: "#f28c28",

@@ -219,9 +219,19 @@ export default function Reservation() {
 }
 
 const styles = StyleSheet.create({
-  background: { flex: 1 },
-  header: { paddingTop: 50, paddingBottom: 10, alignItems: "center" },
-  title: { fontSize: 28, fontWeight: "600", color: "#000" },
+  background: { 
+    flex: 1 
+  },
+  header: { 
+    paddingTop: 50, 
+    paddingBottom: 10, 
+    alignItems: "center" 
+  },
+  title: { 
+    fontSize: 28, 
+    fontWeight: "600", 
+    color: "#000" 
+  },
 
   tabContainer: {
     flexDirection: "row",
@@ -230,9 +240,19 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
   },
-  tabButton: { alignItems: "center", flex: 1 },
-  tabText: { fontSize: 16, color: "#777", fontWeight: "500" },
-  activeTabText: { color: "#000", fontWeight: "700" },
+  tabButton: { 
+    alignItems: "center", 
+    flex: 1 
+  },
+  tabText: { 
+    fontSize: 16, 
+    color: "#777", 
+    fontWeight: "500" 
+  },
+  activeTabText: { 
+    color: "#000", 
+    fontWeight: "700" 
+  },
   tabLine: {
     marginTop: 6,
     height: 2,
@@ -240,9 +260,14 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     borderRadius: 2,
   },
-  activeTabLine: { backgroundColor: "#000" },
+  activeTabLine: { 
+    backgroundColor: "#000"
+  },
 
-  listContainer: { paddingHorizontal: 20, paddingBottom: 20 },
+  listContainer: { 
+    paddingHorizontal: 20, 
+    paddingBottom: 20 
+  },
   card: {
     flexDirection: "row",
     alignItems: "center",
@@ -251,8 +276,15 @@ const styles = StyleSheet.create({
     padding: 18,
     marginBottom: 12,
   },
-  icon: { width: 70, height: 70, marginRight: 18, borderRadius: 10 },
-  cardTextContainer: { flex: 1 },
+  icon: { 
+    width: 70, 
+    height: 70, 
+    marginRight: 18, 
+    borderRadius: 10 
+  },
+  cardTextContainer: { 
+    flex: 1 
+  },
   cardTitle: {
     fontSize: 21,
     fontWeight: "600",
@@ -265,7 +297,12 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontWeight: "400",
   },
-  emptyText: { textAlign: "center", color: "#555", marginTop: 50, fontSize: 16 },
+  emptyText: { 
+    textAlign: "center", 
+    color: "#555", 
+    marginTop: 50, 
+    fontSize: 16 
+  },
 
   modalOverlay: {
     flex: 1,
@@ -297,8 +334,15 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 15,
   },
-  label: { fontWeight: "700", color: "#000" },
-  infoText: { color: "#000", fontSize: 16, marginBottom: 6 },
+  label: { 
+    fontWeight: "700", 
+    color: "#000" 
+  },
+  infoText: { 
+    color: "#000", 
+    fontSize: 16,
+    marginBottom: 6 
+  },
 
   modalButtons: {
     flexDirection: "row",
@@ -315,7 +359,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     elevation: 3,
   },
-  closeButton: { backgroundColor: "#E38B29" },
-  cancelButton: { backgroundColor: "#C75B12" },
-  btnText: { color: "#fff", fontWeight: "600", fontSize: 15 },
+  closeButton: { 
+    backgroundColor: "#E38B29" 
+  },
+  cancelButton: { 
+    backgroundColor: "#C75B12" 
+  },
+  btnText: { 
+    color: "#fff", 
+    fontWeight: "600", 
+    fontSize: 15
+  },
 });

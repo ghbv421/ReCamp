@@ -72,11 +72,45 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: "#83492B",
   },
-  logo: { marginTop: 40, width: 60, height: 60, resizeMode: "contain", marginRight: 8 },
-  recampText: { marginTop: 40, fontSize: 28, fontWeight: "500", color: "#fff" },
-  scrollContainer: { padding: 15, paddingBottom: 100 },
-  cardBox: { backgroundColor: "#D2A679", borderRadius: 16, padding: 6, marginBottom: 15 },
-  cardImage: { height: 180, justifyContent: "flex-end", padding: 10 },
-  cardTitle: { backgroundColor: "#ffffffb3", paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6, fontWeight: "bold", fontSize: 16 },
-  heartIcon: { position: "absolute", bottom: 10, right: 10 },
+  logo: { 
+    marginTop: 40, 
+    width: 60, 
+    height: 60, 
+    resizeMode: "contain", 
+    marginRight: 8 
+  },
+  recampText: { 
+    marginTop: 40, 
+    fontSize: 28, 
+    fontWeight: "500", 
+    color: "#fff" 
+  },
+  scrollContainer: { 
+    padding: 15, 
+    paddingBottom: 100 
+  },
+  cardBox: { 
+    backgroundColor: "#D2A679", 
+    borderRadius: 16, 
+    padding: 6, 
+    marginBottom: 15 
+  },
+  cardImage: { 
+    height: 180, 
+    justifyContent: "flex-end", 
+    padding: 10 
+  },
+  cardTitle: { 
+    backgroundColor: "#ffffffb3", 
+    paddingHorizontal: 8, 
+    paddingVertical: 4, 
+    borderRadius: 6, 
+    fontWeight: "bold", 
+    fontSize: 16 
+  },
+  heartIcon: { 
+    position: "absolute", 
+    bottom: 10, 
+    right: 10 
+  },
 });

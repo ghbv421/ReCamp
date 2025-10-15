@@ -130,8 +130,13 @@ export default function ReservationDetails() {
 }
 
 const styles = StyleSheet.create({
-  background: { flex: 1 },
-  container: { padding: 20, paddingBottom: 40 },
+  background: { 
+    flex: 1 
+  },
+  container: { 
+    padding: 20, 
+    paddingBottom: 40 
+  },
   backButton: {
     position: "absolute",
     top: 70,
@@ -161,9 +166,17 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 15,
   },
-  info: { marginTop: 50 },
-  infoText: { fontSize: 16, color: "#000", marginBottom: 6 },
-  label: { fontWeight: "bold" },
+  info: { 
+    marginTop: 50 
+  },
+  infoText: { 
+    fontSize: 16, 
+    color: "#000", 
+    marginBottom: 6 
+  },
+  label: { 
+    fontWeight: "bold" 
+  },
   doneButton: {
     backgroundColor: "#f28c28",
     paddingVertical: 14,
@@ -171,7 +184,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: "center",
   },
-  doneText: { color: "#fff", fontWeight: "bold", fontSize: 18 },
+  doneText: { 
+    color: "#fff",
+    fontWeight: "bold", 
+    fontSize: 18 
+  },
   editIcon: {
     position: "absolute",
     top: 15,

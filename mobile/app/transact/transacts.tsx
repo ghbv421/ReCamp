@@ -335,8 +335,15 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 15,
   },
-  label: { fontWeight: "700", color: "#000" },
-  infoText: { color: "#000", fontSize: 16, marginBottom: 6 },
+  label: { 
+    fontWeight: "700", 
+    color: "#000" 
+  },
+  infoText: { 
+    color: "#000", 
+    fontSize: 16, 
+    marginBottom: 6 
+  },
   closeBtn: {
     width: "100%",
     backgroundColor: "#E38B29",
@@ -344,5 +351,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     alignItems: "center",
   },
-  btnText: { color: "#fff", fontWeight: "600" },
+  btnText: { 
+    color: "#fff", 
+    fontWeight: "600" 
+  },
 });
