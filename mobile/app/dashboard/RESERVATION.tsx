@@ -2,15 +2,16 @@ import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   FlatList,
   TouchableOpacity,
   Image,
   ImageBackground,
   Animated,
+  StyleSheet,
   Dimensions,
   PanResponder,
   ScrollView,
+  Alert,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -21,7 +22,7 @@ export default function Reservation() {
   const [selectedItem, setSelectedItem] = useState<any>(null);
   const bottomSheetAnim = useRef(new Animated.Value(0)).current;
 
-  React.useEffect(() => {
+  useEffect(() => {
     const loadReservations = async () => {
       const stored = await AsyncStorage.getItem("@reservations");
       setReservations(stored ? JSON.parse(stored) : []);
@@ -54,9 +55,8 @@ export default function Reservation() {
       }
     },
     onPanResponderRelease: (_, gestureState) => {
-      if (gestureState.dy > 150) {
-        closeBottomSheet();
-      } else {
+      if (gestureState.dy > 150) closeBottomSheet();
+      else {
         Animated.timing(bottomSheetAnim, {
           toValue: 1,
           duration: 200,
@@ -66,35 +66,74 @@ export default function Reservation() {
     },
   });
 
-  const formatDateTime = (dateStr: string, timeStr: string) => {
-    if (!dateStr || !timeStr) return "N/A";
-    const date = new Date(`${dateStr}T${timeStr}`);
-    const options: Intl.DateTimeFormatOptions = {
+  const formatDateTime = (value?: string | Date) => {
+    if (!value) return "N/A";
+    let date: Date;
+    if (value instanceof Date) date = value;
+    else {
+      const parsed = Date.parse(value);
+      if (isNaN(parsed)) return "N/A";
+      date = new Date(parsed);
+    }
+    return date.toLocaleString("en-US", {
       month: "short",
-      day: "2-digit",
+      day: "numeric",
       year: "numeric",
       hour: "numeric",
       minute: "2-digit",
-      hour12: true,
-    };
-    return date.toLocaleString("en-US", options);
+    });
+  };
+
+  const cancelReservation = async (item: any) => {
+    Alert.alert(
+      "Cancel Reservation",
+      "Are you sure you want to cancel this reservation?",
+      [
+        { text: "No", style: "cancel" },
+        {
+          text: "Yes, Cancel",
+          style: "destructive",
+          onPress: async () => {
+            try {
+              const cancelledAt = new Date().toISOString();
+              const cancelledItem = { ...item, status: "Cancelled", cancelledAt };
+
+              const updatedReservations = reservations.filter(
+                (r) => r.transactionId !== item.transactionId
+              );
+              await AsyncStorage.setItem(
+                "@reservations",
+                JSON.stringify(updatedReservations)
+              );
+              setReservations(updatedReservations);
+
+              const storedCancelled = await AsyncStorage.getItem("@cancelled");
+              const cancelledList = storedCancelled ? JSON.parse(storedCancelled) : [];
+              cancelledList.push(cancelledItem);
+              await AsyncStorage.setItem("@cancelled", JSON.stringify(cancelledList));
+
+              closeBottomSheet();
+            } catch (e) {
+              console.log("Error cancelling reservation:", e);
+            }
+          },
+        },
+      ]
+    );
   };
 
   const renderItem = ({ item }: { item: any }) => (
     <TouchableOpacity style={styles.card} onPress={() => openBottomSheet(item)}>
       <Image source={item.image} style={styles.icon} />
       <View style={styles.cardTextContainer}>
-        <Text style={styles.cardSubtitle}>
-          Reservation Date:{" "}
-          {item.reservationDate
-            ? formatDateTime(item.reservationDate, item.checkInTime)
-            : "N/A"}
-        </Text>
         <Text style={styles.cardTitle}>{item.title}</Text>
         <Text style={styles.cardSubtitle}>
-          {item.checkInTime && item.checkOutTime
-            ? `${formatDateTime(item.reservationDate, item.checkInTime)} - ${formatDateTime(item.reservationDate, item.checkOutTime)}`
-            : "No date info"}
+          <Text style={{ fontWeight: "700" }}>Reservation Date: </Text>
+          {formatDateTime(item.reservationDate)}
+        </Text>
+        <Text style={styles.cardSubtitle}>
+          <Text style={{ fontWeight: "700" }}>Check-In | Check-Out: </Text>
+          {formatDateTime(item.checkInTime)} - {formatDateTime(item.checkOutTime)}
         </Text>
       </View>
     </TouchableOpacity>
@@ -102,90 +141,106 @@ export default function Reservation() {
 
   const sheetTranslateY = bottomSheetAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: [SCREEN_HEIGHT, SCREEN_HEIGHT * 0.1], // 90% height
+    outputRange: [SCREEN_HEIGHT, SCREEN_HEIGHT * 0.1],
   });
 
   return (
     <ImageBackground
       source={require("../../assets/images/dashboardbg.png")}
-      style={styles.background}
+      style={{ flex: 1 }}
     >
-      {/* Header */}
-      <View style={styles.header}>
-        <Text style={styles.title}>Reservations</Text>
+      {/* Header with line */}
+      <View style={{ paddingTop: 40, paddingBottom: 10, alignItems: "center" }}>
+        <Text style={{ fontSize: 28, fontWeight: "800", color: "#000", marginTop: 30 }}>Reservation</Text>
         <View style={styles.headerLine} />
       </View>
 
-      {/* Reservation List */}
       <FlatList
         data={reservations}
         keyExtractor={(item) => item.transactionId}
         renderItem={renderItem}
-        contentContainerStyle={styles.listContainer}
+        contentContainerStyle={{ padding: 20, paddingBottom: 50 }}
         ListEmptyComponent={
-          <Text style={styles.emptyText}>No reservations yet.</Text>
+          <Text style={{ textAlign: "center", marginTop: 50 }}>No reservations yet.</Text>
         }
       />
 
-      {/* Bottom Sheet */}
       {selectedItem && (
         <>
           <TouchableOpacity
-            style={styles.dimBackground}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "#00000055",
+            }}
             activeOpacity={1}
             onPress={closeBottomSheet}
           />
+
           <Animated.View
-            style={[styles.bottomSheet, { transform: [{ translateY: sheetTranslateY }] }]}
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              top: 0,
+              height: SCREEN_HEIGHT * 0.9,
+              backgroundColor: "#fff",
+              borderTopLeftRadius: 25,
+              borderTopRightRadius: 25,
+              padding: 20,
+              transform: [{ translateY: sheetTranslateY }],
+            }}
             {...panResponder.panHandlers}
           >
-            <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
-              <Image source={selectedItem.image} style={styles.sheetImage} />
-              <Text style={styles.sheetTitle}>{selectedItem.title}</Text>
+            <ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
+              <Image
+                source={selectedItem.image}
+                style={{ width: "100%", height: 180, borderRadius: 15, marginBottom: 10 }}
+              />
+              <Text style={{ fontSize: 22, fontWeight: "700", marginBottom: 10, textAlign: "center" }}>
+                {selectedItem.title}
+              </Text>
+              <Text style={{ fontSize: 16, fontWeight: "700", marginBottom: 6 }}>
+                Transaction ID: {selectedItem.transactionId}
+              </Text>
 
-              <View style={styles.sheetInfo}>
-                <Text style={styles.infoText}>
-                  <Text style={styles.label}>Reservation ID: </Text>
-                  {selectedItem.transactionId}
-                </Text>
-                <Text style={styles.infoText}>
-                  <Text style={styles.label}>Reservation Date: </Text>
-                  {formatDateTime(selectedItem.reservationDate, selectedItem.checkInTime)}
-                </Text>
-                <Text style={styles.infoText}>
-                  <Text style={styles.label}>Check-In / Out: </Text>
-                  {formatDateTime(selectedItem.reservationDate, selectedItem.checkInTime)} -{" "}
-                  {formatDateTime(selectedItem.reservationDate, selectedItem.checkOutTime)}
-                </Text>
-                <Text style={styles.infoText}>
-                  <Text style={styles.label}>Guests: </Text>
-                  {selectedItem.guest || "N/A"}
-                </Text>
-                <Text style={styles.infoText}>
-                  <Text style={styles.label}>Payment: </Text>
-                  {selectedItem.payment || "N/A"}
-                </Text>
-              </View>
+              {[
+                ["Reservation Date", formatDateTime(selectedItem.reservationDate)],
+                ["Check-In", formatDateTime(selectedItem.checkInTime)],
+                ["Check-Out", formatDateTime(selectedItem.checkOutTime)],
+                ["Customer", selectedItem.customer],
+                ["Contact", selectedItem.contact],
+                ["Stay Duration", selectedItem.stayDuration],
+                ["Guest", selectedItem.guest],
+                ["Payment", selectedItem.payment],
+              ].map(([label, value]) => (
+                <View
+                  key={label}
+                  style={{ borderBottomWidth: 0.5, borderBottomColor: "#ccc", marginBottom: 6, paddingBottom: 4 }}
+                >
+                  <Text style={{ fontSize: 16 }}>
+                    <Text style={{ fontWeight: "700" }}>{label}: </Text>
+                    {value || "N/A"}
+                  </Text>
+                </View>
+              ))}
 
-              <View style={styles.sheetButtons}>
+              <View style={{ flexDirection: "row", justifyContent: "space-between", gap: 10, marginTop: 15 }}>
                 <TouchableOpacity
-                  style={[styles.sheetBtn, styles.closeBtn]}
+                  style={{ flex: 1, backgroundColor: "#E38B29", paddingVertical: 12, borderRadius: 25, alignItems: "center" }}
                   onPress={closeBottomSheet}
                 >
-                  <Text style={styles.btnText}>Close</Text>
+                  <Text style={{ color: "#fff", fontWeight: "600" }}>Close</Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity
-                  style={[styles.sheetBtn, styles.cancelBtn]}
-                  onPress={async () => {
-                    const updated = reservations.filter(
-                      (r) => r.transactionId !== selectedItem.transactionId
-                    );
-                    await AsyncStorage.setItem("@reservations", JSON.stringify(updated));
-                    setReservations(updated);
-                    closeBottomSheet();
-                  }}
+                  style={{ flex: 1, backgroundColor: "#C75B12", paddingVertical: 12, borderRadius: 25, alignItems: "center" }}
+                  onPress={() => cancelReservation(selectedItem)}
                 >
-                  <Text style={styles.btnText}>Cancel Reservation</Text>
+                  <Text style={{ color: "#fff", fontWeight: "600" }}>Cancel Reservation</Text>
                 </TouchableOpacity>
               </View>
             </ScrollView>
@@ -197,9 +252,6 @@ export default function Reservation() {
 }
 
 const styles = StyleSheet.create({
-  background: { flex: 1 },
-  header: { paddingTop: 50, paddingBottom: 10, alignItems: "center" },
-  title: { fontSize: 30, fontWeight: "800", color: "#000", marginTop: 20 },
   headerLine: {
     height: 1,
     backgroundColor: "#000000ff",
@@ -208,7 +260,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderRadius: 1,
   },
-  listContainer: { padding: 20, paddingBottom: 40 },
   card: {
     flexDirection: "row",
     alignItems: "center",
@@ -221,42 +272,4 @@ const styles = StyleSheet.create({
   cardTextContainer: { flex: 1 },
   cardTitle: { fontSize: 21, fontWeight: "600", color: "#000" },
   cardSubtitle: { fontSize: 13, color: "#666", marginTop: 4 },
-  emptyText: { textAlign: "center", color: "#555", marginTop: 50, fontSize: 16 },
-  dimBackground: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "#00000055",
-  },
-  bottomSheet: {
-    position: "absolute",
-    left: 0,
-    right: 0,
-    top: SCREEN_HEIGHT * 0.1, // 90% height
-    height: SCREEN_HEIGHT * 0.9,
-    backgroundColor: "#fff",
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    padding: 20,
-    elevation: 10,
-  },
-  sheetImage: { width: "100%", height: 180, borderRadius: 15, marginBottom: 10 },
-  sheetTitle: { fontSize: 22, fontWeight: "700", marginBottom: 10, textAlign: "center" },
-  sheetInfo: { marginBottom: 15 },
-  label: { fontWeight: "700" },
-  infoText: {
-    fontSize: 16,
-    color: "#000",
-    marginBottom: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: "#ccc",
-    paddingBottom: 4,
-  },
-  sheetButtons: { flexDirection: "row", justifyContent: "space-between", gap: 10 },
-  sheetBtn: { flex: 1, paddingVertical: 12, borderRadius: 25, alignItems: "center" },
-  closeBtn: { backgroundColor: "#E38B29" },
-  cancelBtn: { backgroundColor: "#C75B12" },
-  btnText: { color: "#fff", fontWeight: "600", fontSize: 15 },
 });

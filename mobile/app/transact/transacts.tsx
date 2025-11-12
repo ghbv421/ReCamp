@@ -13,7 +13,7 @@ import {
   Dimensions,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 
 const screenWidth = Dimensions.get("window").width;
@@ -35,6 +35,7 @@ const formatDateTime = (dateString: string | undefined, includeTime = true) => {
 };
 
 export default function Transact() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("Past");
   const [completed, setCompleted] = useState<any[]>([]);
   const [cancelled, setCancelled] = useState<any[]>([]);
@@ -126,7 +127,7 @@ export default function Transact() {
       {/* Header */}
       <View style={styles.header}>
         {/* Back Button */}
-        <TouchableOpacity style={styles.backButton} onPress={() => window.history.back()}>
+        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={28} color="#000" />
         </TouchableOpacity>
 
@@ -189,7 +190,7 @@ export default function Transact() {
 
                 <View style={styles.modalContent}>
                   <Text style={styles.infoText}>
-                    <Text style={styles.label}>Reservation ID: </Text>
+                    <Text style={styles.label}>Transaction ID: </Text>
                     {selectedItem.transactionId}
                   </Text>
 
