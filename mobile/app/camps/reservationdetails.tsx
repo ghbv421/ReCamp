@@ -5,7 +5,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  Image,
   ImageBackground,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -16,37 +15,36 @@ export default function ReservationDetails() {
   const router = useRouter();
   const params = useLocalSearchParams() as any;
 
-  // Use static reservation data passed via params
-  const [reservation] = useState(params);
+  const [reservation, setReservation] = useState(params);
+
+  const generateTransactionId = () => {
+    const timestamp = Date.now().toString().slice(-6);
+    const random = Math.floor(Math.random() * 900 + 100);
+    return `TXC-${timestamp}${random}`;
+  };
 
   const handleDone = async () => {
     try {
-      // Load existing reservations
       const stored = await AsyncStorage.getItem("@reservations");
       const reservations = stored ? JSON.parse(stored) : [];
 
-      // Check if reservation already exists
-      const index = reservations.findIndex((r: any) => r.id === reservation.id);
-      let updatedReservations = [];
+      const newReservation = {
+        ...reservation,
+        transactionId: generateTransactionId(),
+        reservationDate: new Date().toISOString(), // current date
+        checkInTime: reservation.checkInTime,      // make sure this is ISO string
+        checkOutTime: reservation.checkOutTime,    // make sure this is ISO string
+      };
 
-      if (index >= 0) {
-        // Update existing reservation
-        updatedReservations = reservations.map((r: any) =>
-          r.id === reservation.id ? reservation : r
-        );
-      } else {
-        // Add new reservation
-        updatedReservations = [...reservations, reservation];
-      }
+      // Add new reservation
+      const updatedReservations = [...reservations, newReservation];
 
-      // Save back to AsyncStorage
       await AsyncStorage.setItem(
         "@reservations",
         JSON.stringify(updatedReservations)
       );
 
-      // Navigate back to home/dashboard
-      router.push("/dashboard/home"); // adjust to your home route
+      router.push("/dashboard/home");
     } catch (e) {
       console.log("Error saving reservation:", e);
     }
@@ -58,7 +56,6 @@ export default function ReservationDetails() {
       style={styles.background}
     >
       <ScrollView contentContainerStyle={styles.container}>
-        {/* Back Button */}
         <TouchableOpacity
           style={styles.backButton}
           onPress={() => router.back()}
@@ -69,13 +66,12 @@ export default function ReservationDetails() {
         <Text style={styles.header}>Reservation Details</Text>
 
         <View style={styles.card}>
-          {/* Floating Pencil Icon */}
           <TouchableOpacity
             style={styles.editIcon}
             onPress={() =>
               router.push({
                 pathname: "/camps/addreservation",
-                params: reservation, // Pass the reservation for editing
+                params: reservation,
               })
             }
           >
@@ -85,10 +81,6 @@ export default function ReservationDetails() {
           <Text style={styles.campTitle}>{reservation.title}</Text>
 
           <View style={styles.info}>
-            <Text style={styles.infoText}>
-              <Text style={styles.label}>Reservation Date: </Text>
-              {reservation.reservationDate || "N/A"}
-            </Text>
             <Text style={styles.infoText}>
               <Text style={styles.label}>Customer: </Text>
               {reservation.customer || "N/A"}
@@ -103,11 +95,15 @@ export default function ReservationDetails() {
             </Text>
             <Text style={styles.infoText}>
               <Text style={styles.label}>Check-In: </Text>
-              {reservation.checkInTime || "N/A"}
+              {reservation.checkInTime
+                ? formatDateTime(reservation.checkInTime)
+                : "N/A"}
             </Text>
             <Text style={styles.infoText}>
               <Text style={styles.label}>Check-Out: </Text>
-              {reservation.checkOutTime || "N/A"}
+              {reservation.checkOutTime
+                ? formatDateTime(reservation.checkOutTime)
+                : "N/A"}
             </Text>
             <Text style={styles.infoText}>
               <Text style={styles.label}>Guest(s): </Text>
@@ -119,7 +115,6 @@ export default function ReservationDetails() {
             </Text>
           </View>
 
-          {/* Done Button */}
           <TouchableOpacity style={styles.doneButton} onPress={handleDone}>
             <Text style={styles.doneText}>Done</Text>
           </TouchableOpacity>
@@ -129,14 +124,31 @@ export default function ReservationDetails() {
   );
 }
 
+// Helper function
+const formatDateTime = (value?: string | Date) => {
+  if (!value) return "N/A";
+  let date: Date;
+  if (value instanceof Date) {
+    date = value;
+  } else {
+    const parsed = Date.parse(value);
+    if (isNaN(parsed)) return "N/A";
+    date = new Date(parsed);
+  }
+
+  const options: Intl.DateTimeFormatOptions = {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  };
+  return date.toLocaleString("en-US", options);
+};
+
 const styles = StyleSheet.create({
-  background: { 
-    flex: 1 
-  },
-  container: { 
-    padding: 20, 
-    paddingBottom: 40 
-  },
+  background: { flex: 1 },
+  container: { padding: 20, paddingBottom: 40 },
   backButton: {
     position: "absolute",
     top: 70,
@@ -166,17 +178,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 15,
   },
-  info: { 
-    marginTop: 50 
-  },
-  infoText: { 
-    fontSize: 16, 
-    color: "#000", 
-    marginBottom: 6 
-  },
-  label: { 
-    fontWeight: "bold" 
-  },
+  info: { marginTop: 50 },
+  infoText: { fontSize: 16, color: "#000", marginBottom: 6 },
+  label: { fontWeight: "bold" },
   doneButton: {
     backgroundColor: "#f28c28",
     paddingVertical: 14,
@@ -184,11 +188,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: "center",
   },
-  doneText: { 
-    color: "#fff",
-    fontWeight: "bold", 
-    fontSize: 18 
-  },
+  doneText: { color: "#fff", fontWeight: "bold", fontSize: 18 },
   editIcon: {
     position: "absolute",
     top: 15,

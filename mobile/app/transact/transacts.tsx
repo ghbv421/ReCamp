@@ -14,8 +14,25 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useLocalSearchParams } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
 
 const screenWidth = Dimensions.get("window").width;
+
+// Helper function to format date and time
+const formatDateTime = (dateString: string | undefined, includeTime = true) => {
+  if (!dateString) return "N/A";
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) return "N/A";
+
+  const options: Intl.DateTimeFormatOptions = {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: includeTime ? "numeric" : undefined,
+    minute: includeTime ? "2-digit" : undefined,
+  };
+  return date.toLocaleString("en-US", options);
+};
 
 export default function Transact() {
   const [activeTab, setActiveTab] = useState("Past");
@@ -56,12 +73,9 @@ export default function Transact() {
       <Image source={item.image} style={styles.icon} />
       <View style={styles.cardTextContainer}>
         <Text style={styles.cardTitle}>{item.title}</Text>
-        <Text style={styles.cardSubtitle}>
-          {item.status} • {item.dateTime}
-        </Text>
         {item.status === "Cancelled" && item.cancelledAt && (
           <Text style={styles.cancelledTime}>
-            Cancelled at {item.cancelledAt}
+            Cancelled at {formatDateTime(item.cancelledAt)}
           </Text>
         )}
       </View>
@@ -88,7 +102,10 @@ export default function Transact() {
               );
               setCancelled(updatedCancelled);
               setModalVisible(false);
-              Alert.alert("Deleted", "Cancelled transaction removed successfully!");
+              Alert.alert(
+                "Deleted",
+                "Cancelled transaction removed successfully!"
+              );
             } catch (e) {
               console.log("Error deleting cancelled transaction:", e);
             }
@@ -108,6 +125,11 @@ export default function Transact() {
     >
       {/* Header */}
       <View style={styles.header}>
+        {/* Back Button */}
+        <TouchableOpacity style={styles.backButton} onPress={() => window.history.back()}>
+          <Ionicons name="arrow-back" size={28} color="#000" />
+        </TouchableOpacity>
+
         <Text style={styles.title}>Transaction History</Text>
 
         {/* Tabs */}
@@ -115,10 +137,7 @@ export default function Transact() {
           {["Past", "Cancelled"].map((tab) => (
             <TouchableOpacity
               key={tab}
-              style={[
-                styles.tab,
-                activeTab === tab && styles.activeTab,
-              ]}
+              style={[styles.tab, activeTab === tab && styles.activeTab]}
               onPress={() => setActiveTab(tab)}
             >
               <Text
@@ -161,28 +180,31 @@ export default function Transact() {
             {selectedItem && (
               <ScrollView contentContainerStyle={{ alignItems: "center" }}>
                 {selectedItem.image && (
-                  <Image source={selectedItem.image} style={styles.modalImage} />
+                  <Image
+                    source={selectedItem.image}
+                    style={styles.modalImage}
+                  />
                 )}
                 <Text style={styles.modalTitle}>{selectedItem.title}</Text>
 
                 <View style={styles.modalContent}>
                   <Text style={styles.infoText}>
-                    <Text style={styles.label}>Transaction ID: </Text>
+                    <Text style={styles.label}>Reservation ID: </Text>
                     {selectedItem.transactionId}
                   </Text>
 
                   {Object.entries({
-                    "Reservation Date": selectedItem.reservationDate,
                     Customer: selectedItem.customer,
                     Contact: selectedItem.contact,
+                    "Reservation Date": formatDateTime(selectedItem.reservationDate),
                     "Stay Duration": selectedItem.stayDuration,
-                    "Check-In": selectedItem.checkInTime,
-                    "Check-Out": selectedItem.checkOutTime,
+                    "Check-In": formatDateTime(selectedItem.checkInTime),
+                    "Check-Out": formatDateTime(selectedItem.checkOutTime),
                     Guest: selectedItem.guest,
                     Payment: selectedItem.payment,
                     Status: selectedItem.status,
                     ...(selectedItem.cancelledAt
-                      ? { "Cancelled At": selectedItem.cancelledAt }
+                      ? { "Cancelled At": formatDateTime(selectedItem.cancelledAt) }
                       : {}),
                   }).map(([label, value]) => (
                     <Text key={label} style={styles.infoText}>
@@ -219,49 +241,21 @@ export default function Transact() {
 }
 
 const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-  },
-  header: {
-    paddingTop: 60,
-    paddingBottom: 10,
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: "700",
-    color: "#111",
-    marginBottom: 10,
-  },
+  background: { flex: 1, width: "100%", height: "100%" },
+  header: { paddingTop: 60, paddingBottom: 10, alignItems: "center" },
+  backButton: { position: "absolute", left: 20, top: 60 },
+  title: { fontSize: 26, fontWeight: "700", color: "#111", marginBottom: 10 },
   tabContainer: {
     flexDirection: "row",
     width: screenWidth,
     borderBottomWidth: 1,
     borderBottomColor: "rgba(0,0,0,0.3)",
   },
-  tab: {
-    flex: 1,
-    alignItems: "center",
-    paddingVertical: 8,
-  },
-  tabText: {
-    fontSize: 16,
-    fontWeight: "600",
-    color: "#888",
-  },
-  activeTabText: {
-    color: "#000",
-  },
-  activeTab: {
-    borderBottomWidth: 3,
-    borderBottomColor: "#000",
-  },
-  listContainer: {
-    paddingHorizontal: 20,
-    paddingBottom: 50,
-  },
+  tab: { flex: 1, alignItems: "center", paddingVertical: 8 },
+  tabText: { fontSize: 16, fontWeight: "600", color: "#888" },
+  activeTabText: { color: "#000" },
+  activeTab: { borderBottomWidth: 3, borderBottomColor: "#000" },
+  listContainer: { paddingHorizontal: 20, paddingBottom: 50 },
   card: {
     flexDirection: "row",
     alignItems: "center",
@@ -275,84 +269,19 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
   },
-  icon: {
-    width: 60,
-    height: 60,
-    borderRadius: 10,
-    marginRight: 15,
-  },
-  cardTextContainer: {
-    flex: 1,
-  },
-  cardTitle: {
-    fontSize: 17,
-    fontWeight: "600",
-    color: "#000",
-  },
-  cardSubtitle: {
-    fontSize: 13,
-    color: "#777",
-    marginTop: 3,
-  },
-  cancelledTime: {
-    fontSize: 12,
-    color: "#C0392B",
-    marginTop: 2,
-  },
-  emptyText: {
-    textAlign: "center",
-    color: "#444",
-    marginTop: 40,
-    fontSize: 15,
-  },
-  modalOverlay: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#00000099",
-  },
-  modalContainer: {
-    width: "90%",
-    backgroundColor: "#ffffffcc",
-    borderRadius: 20,
-    padding: 15,
-  },
-  modalImage: {
-    width: "100%",
-    height: 200,
-    borderRadius: 15,
-    marginBottom: 10,
-  },
-  modalTitle: {
-    fontSize: 22,
-    fontWeight: "700",
-    color: "#000",
-    marginBottom: 10,
-  },
-  modalContent: {
-    width: "100%",
-    borderRadius: 15,
-    padding: 10,
-    marginBottom: 15,
-  },
-  label: { 
-    fontWeight: "700", 
-    color: "#000" 
-  },
-  infoText: { 
-    color: "#000", 
-    fontSize: 16, 
-    marginBottom: 6 
-  },
-  closeBtn: {
-    width: "100%",
-    backgroundColor: "#E38B29",
-    padding: 10,
-    borderRadius: 20,
-    alignItems: "center",
-  },
-  btnText: { 
-    color: "#fff", 
-    fontWeight: "600" 
-  },
+  icon: { width: 60, height: 60, borderRadius: 10, marginRight: 15 },
+  cardTextContainer: { flex: 1 },
+  cardTitle: { fontSize: 17, fontWeight: "600", color: "#000" },
+  cardSubtitle: { fontSize: 13, color: "#777", marginTop: 3 },
+  cancelledTime: { fontSize: 12, color: "#C0392B", marginTop: 2 },
+  emptyText: { textAlign: "center", color: "#444", marginTop: 40, fontSize: 15 },
+  modalOverlay: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#00000099" },
+  modalContainer: { width: "90%", backgroundColor: "#ffffffcc", borderRadius: 20, padding: 15 },
+  modalImage: { width: "100%", height: 200, borderRadius: 15, marginBottom: 10 },
+  modalTitle: { fontSize: 22, fontWeight: "700", color: "#000", marginBottom: 10 },
+  modalContent: { width: "100%", borderRadius: 15, padding: 10, marginBottom: 15 },
+  label: { fontWeight: "700", color: "#000" },
+  infoText: { color: "#000", fontSize: 16, marginBottom: 6 },
+  closeBtn: { width: "100%", backgroundColor: "#E38B29", padding: 10, borderRadius: 20, alignItems: "center" },
+  btnText: { color: "#fff", fontWeight: "600" },
 });
