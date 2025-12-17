@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -5,15 +6,74 @@ import {
   StyleSheet,
   ImageBackground,
   Image,
+  Alert,
+  ActivityIndicator
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useRouter } from "expo-router";
+import * as ImagePicker from 'expo-image-picker';
+// ✅ Import the Context Hook
+import { useUser } from "../../app/context/UserContext";
 
 export default function ProfilePic() {
-  const navigation = useNavigation();
+  const router = useRouter();
+  // ✅ Get the global image & updater function
+  const { profileImage, updateProfileImage } = useUser();
 
+  // Local state for the preview (shows changes before you save)
+  const [selectedImage, setSelectedImage] = useState(profileImage);
+  const [loading, setLoading] = useState(false);
+
+  // 1. Pick from Gallery
+  const handleChoosePhoto = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage({ uri: result.assets[0].uri });
+    }
+  };
+
+  // 2. Take Photo (Camera)
+  const handleTakePhoto = async () => {
+    const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
+    
+    if (permissionResult.granted === false) {
+      Alert.alert("Permission Required", "You need to allow camera access.");
+      return;
+    }
+
+    let result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      aspect: [1, 1],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage({ uri: result.assets[0].uri });
+    }
+  };
+
+  // 3. Save and Sync
   const handleSave = () => {
-    navigation.goBack();
+    setLoading(true);
+
+    // Simulate saving delay
+    setTimeout(() => {
+      // ✅ Update the global context
+      if (selectedImage.uri) {
+        updateProfileImage(selectedImage.uri);
+      }
+      
+      setLoading(false);
+      Alert.alert("Success", "Profile photo updated!", [
+        { text: "OK", onPress: () => router.back() }
+      ]);
+    }, 1000);
   };
 
   return (
@@ -22,29 +82,37 @@ export default function ProfilePic() {
       style={styles.background}
     >
       <View style={styles.container}>
-        {/* Static Profile Picture */}
+        
+        {/* Dynamic Profile Picture Preview */}
         <Image
-          source={require("../../assets/images/profilepic.png")} // 👈 your static profile image here
+          source={selectedImage} // 👈 Uses the state, not a static require()
           style={styles.profileImage}
         />
 
         {/* Options Box */}
         <View style={styles.box}>
-          <TouchableOpacity style={styles.option}>
-            <Ionicons name="image-outline" size={20} color="black" />
+          {/* Choose from Gallery */}
+          <TouchableOpacity style={styles.option} onPress={handleChoosePhoto}>
+            <Ionicons name="image-outline" size={24} color="black" />
             <Text style={styles.text}>Choose Photo</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.option}>
-            <Ionicons name="camera-outline" size={20} color="black" />
-            <Text style={styles.text}>Upload Photo</Text>
+          {/* Take Photo */}
+          <TouchableOpacity style={styles.option} onPress={handleTakePhoto}>
+            <Ionicons name="camera-outline" size={24} color="black" />
+            <Text style={styles.text}>Take Photo</Text>
           </TouchableOpacity>
         </View>
 
         {/* Save Button */}
-        <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-          <Text style={styles.saveText}>Save</Text>
+        <TouchableOpacity style={styles.saveButton} onPress={handleSave} disabled={loading}>
+          {loading ? (
+             <ActivityIndicator color="black" />
+          ) : (
+             <Text style={styles.saveText}>Save</Text>
+          )}
         </TouchableOpacity>
+
       </View>
     </ImageBackground>
   );
@@ -68,6 +136,7 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderColor: "black",
     marginBottom: 370,
+    backgroundColor: '#fff', // fallback color
   },
   box: {
     position: "absolute",
@@ -75,28 +144,27 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderWidth: 2,
     borderColor: "black",
-    padding: 40,
+    padding: 30,
     width: "80%",
-    height: 150,
-    backgroundColor: "rgba(255, 255, 255, 0.16)",
+    backgroundColor: "rgba(255, 255, 255, 0.4)", // Slightly more visible
     borderRadius: 12,
   },
   option: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 15,
+    marginBottom: 20,
   },
   text: {
-    marginLeft: 30,
+    marginLeft: 20,
     fontSize: 18,
-    fontWeight: "400",
+    fontWeight: "500",
   },
   saveButton: {
     backgroundColor: "#FF8C42",
     paddingVertical: 14,
     paddingHorizontal: 50,
     borderRadius: 8,
-    marginTop: 20,
+    marginTop: -50, // Adjusted to fit layout
   },
   saveText: {
     color: "black",

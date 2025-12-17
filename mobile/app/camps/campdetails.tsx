@@ -1,203 +1,240 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from "react-native";
-import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import React, { useEffect, useState, useCallback } from 'react';
+import { 
+  View, Text, Image, StyleSheet, ScrollView, ActivityIndicator, TouchableOpacity, Alert, SafeAreaView, Platform, StatusBar
+} from 'react-native';
+import { useLocalSearchParams, useRouter, useFocusEffect } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+// @ts-ignore
+import { placesAPI } from '../../services/api';
+// ✅ Import Context to check Admin Role
+import { useUser } from '../../app/context/UserContext';
 
-// --- Camp data (images + descriptions) ---
-const camps: { [key: string]: any } = {
-  cowboys: {
-    image: require("../../assets/images/Cowboys.png"),
-    title: "Cowboy’s Camp",
-    location:
-      "Cowboy’s Camp is perched atop Mt. Kitagas, surrounded by mountains and lush greenery, offering a peaceful escape from city life.",
-    highlights:
-      "Panoramic mountain vistas, Refreshing breezes, Hiking trails, Birdwatching, Sunrise/Sunset photography",
-    fees:
-      "Entrance Fee: ₱20 per person. Overnight: ₱50 per person. Affordable getaway; bring own tents & gear for overnight.",
-    howToGetThere:
-      "Jump-off: Kili-og Elementary School, 1-hour moderate hike. Trail well-marked, coordinate with Barangay Council.",
-    considerations:
-      "Weather changes rapidly; bring rain gear & warm clothes. Wear proper hiking shoes and carry water. Mobile signal may be weak.",
-  },
-  agos: {
-    image: require("../../assets/images/Agos.png"),
-    title: "Agos Camp",
-    location:
-      "Nestled near a river with lush vegetation, perfect for families and casual campers.",
-    highlights: "River swimming, Picnicking, Hiking trails, Scenic mountain backdrops",
-    fees: "Entrance Fee: ₱15 | Overnight: ₱40. Budget-friendly riverside retreat.",
-    howToGetThere:
-      "Jump-off: Agos Barangay Hall, 30-minute flat riverside walk. Wear proper footwear.",
-    considerations:
-      "River currents strong during rainy season. Bring water shoes & insect repellent. Secure tents on higher ground.",
-  },
-  hapitanan: {
-    image: require("../../assets/images/Hapitanan.png"),
-    title: "Hapitanan Camp",
-    location:
-      "Hilltop campsite offering sweeping views of valleys and hills in Malaybalay.",
-    highlights:
-      "Sunrise views, Trekking, Stargazing, Panoramic vistas, Wildlife spotting, Meditation",
-    fees: "Entrance: ₱25 | Overnight: ₱60. Minimal on-site facilities; plan ahead.",
-    howToGetThere:
-      "Jump-off: Barangay Malaybalay Center, 45-min uphill trek. Moderately steep; bring sturdy shoes & water.",
-    considerations:
-      "Steep trails; nights can be cold. Bring trekking poles, warm clothing, and enough supplies for overnight.",
-  },
-  zion: {
-    image: require("../../assets/images/Zion.jpg"),
-    title: "Zion Camp",
-    location: "Zion Camp is a serene location with open meadows and forest trails.",
-    highlights: "Hiking, Meditation, Wildlife spotting, Star gazing",
-    fees: "Entrance Fee: ₱20 | Overnight: ₱50",
-    howToGetThere: "Jump-off: Zion Barangay Hall, 1-hour walk, trail marked",
-    considerations: "Bring mosquito repellent and sufficient water. Limited mobile signal.",
-  },
-  lilbaguio: {
-    image: require("../../assets/images/Lilbaguio.png"),
-    title: "Lil Baguio Camp",
-    location:
-      "Lil Baguio Camp offers a cool mountain retreat surrounded by pine trees.",
-    highlights: "Hiking, Scenic Views, Picnic Areas, Camping",
-    fees: "Entrance Fee: ₱30 | Overnight: ₱70",
-    howToGetThere:
-      "Jump-off: Lil Baguio Barangay Hall, 45-minute moderate hike. Wear proper shoes.",
-    considerations: "Mountain weather can change quickly; bring warm clothes and rain gear.",
-  },
-  vistaDelParaiso: {
-    image: require("../../assets/images/Kauswagan.png"),
-    title: "Vista del Paraíso",
-    location:
-      "Vista del Paraíso is a scenic riverside and hillside camp with breathtaking views of nature, ideal for family outings and leisure camping.",
-    highlights:
-      "River swimming, Hiking trails, Birdwatching, Bonfire nights, Sunset photography",
-    fees:
-      "Entrance Fee: ₱25 | Overnight: ₱60. Day use and camping facilities available. Bring your own tents for overnight stays.",
-    howToGetThere:
-      "Jump-off: Vista del Paraíso Barangay Hall, 30-min riverside walk to campsite. Follow marked paths and local guides for safety.",
-    considerations:
-      "River currents can be strong during rainy season. Bring mosquito repellent, water, and camping gear. Limited mobile signal.",
-  },
-};
-
-export default function CampDetails() {
+export default function CampDetailsScreen() {
   const { id } = useLocalSearchParams();
   const router = useRouter();
-  const campId = Array.isArray(id) ? id[0] : id;
+  
+  // ✅ Get User Data
+  const { userData } = useUser();
+  const isAdmin = userData?.role === 'admin';
 
-  // Safe fallback
-  const camp = camps[campId!] || {
-    image: require("../../assets/images/default.png"),
-    title: "Unknown Camp",
-    location: "No information available",
-    highlights: "",
-    fees: "N/A",
-    howToGetThere: "N/A",
-    considerations: "N/A",
+  const [camp, setCamp] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useFocusEffect(
+    useCallback(() => {
+      if (id) loadCamp();
+    }, [id])
+  );
+
+  const loadCamp = async () => {
+    try {
+      const { data } = await placesAPI.getOne(id);
+      setCamp(data);
+    } catch (error) {
+      Alert.alert("Error", "Could not load camp details");
+      router.back();
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const [readMore, setReadMore] = useState<{ [key: string]: boolean }>({});
-
-  const toggleReadMore = (section: string) => {
-    setReadMore((prev) => ({ ...prev, [section]: !prev[section] }));
+  const handleDelete = () => {
+    Alert.alert(
+      "Delete Camp",
+      "Are you sure you want to delete this camp?",
+      [
+        { text: "Cancel", style: "cancel" },
+        { 
+          text: "Delete", style: "destructive", 
+          onPress: async () => {
+            try {
+              setLoading(true);
+              await placesAPI.delete(id);
+              router.replace("/dashboard/home"); 
+            } catch (error) {
+              Alert.alert("Error", "Could not delete camp.");
+              setLoading(false);
+            }
+          }
+        }
+      ]
+    );
   };
 
-  const sections = [
-    { key: "location", icon: <Ionicons name="location-outline" size={16} color="#f28c28" />, title: "Location & Info", content: camp.location },
-    { key: "fees", icon: <Ionicons name="cash-outline" size={16} color="#f28c28" />, title: "Fees", content: camp.fees },
-    { key: "howToGetThere", icon: <MaterialIcons name="directions-walk" size={16} color="#f28c28" />, title: "How to Get There", content: camp.howToGetThere },
-    { key: "considerations", icon: <Ionicons name="warning-outline" size={16} color="#f28c28" />, title: "Things to Consider", content: camp.considerations },
-  ];
+  if (loading) return <ActivityIndicator style={{ marginTop: 50 }} size="large" color="#FF5A5F" />;
+  if (!camp) return <Text style={{ textAlign: 'center', marginTop: 50 }}>Camp not found</Text>;
 
-  const highlightList = camp.highlights ? camp.highlights.split(",").map((h: string) => h.trim()) : [];
+  const highlightsList = camp.highlights ? camp.highlights.split(',').map((h: string) => h.trim()) : [];
+  const categoryList = camp.category ? camp.category.split(',').map((c: string) => c.trim()) : [];
 
   return (
-    <View style={styles.container}>
-      {/* Header Image */}
-      <View style={styles.imageContainer}>
-        <Image source={camp.image} style={styles.headerImage} />
-        <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={26} color="#fff" />
-        </TouchableOpacity>
-        <View style={styles.titleOverlay}>
-          <Text style={styles.titleText}>{camp.title}</Text>
-        </View>
-      </View>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={{ flex: 1, backgroundColor: '#f0f0f0' }}>
+        <ScrollView contentContainerStyle={{ paddingBottom: 100 }}>
+          
+          {/* HEADER IMAGE & BUTTONS */}
+          <View style={styles.imageContainer}>
+            <Image source={{ uri: camp.imageUrl }} style={styles.headerImage} />
+            
+            {/* Back Button (Visible to everyone) */}
+            <TouchableOpacity style={styles.backBtn} onPress={() => router.back()}>
+              <Ionicons name="arrow-back" size={24} color="black" />
+            </TouchableOpacity>
 
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 40 }}>
-        {/* Highlights Slider */}
-        {highlightList.length > 0 && (
-          <View style={{ marginTop: 15, marginBottom: 20 }}>
-            <Text style={styles.sliderTitle}>     Highlights & Activities</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ paddingLeft: 15 }}>
-              {highlightList.map((item: string, idx: number) => (
-                <View key={idx} style={styles.highlightCard}>
-                  <Text style={styles.highlightText}>{item}</Text>
-                </View>
-              ))}
-            </ScrollView>
-          </View>
-        )}
+            {/* ✅ ADMIN ONLY: Edit & Delete Buttons */}
+            {isAdmin && (
+              <>
+                <TouchableOpacity 
+                  style={styles.editBtn} 
+                  onPress={() => router.push({ pathname: "/camps/editCamp", params: { id: camp._id } })}
+                >
+                  <Ionicons name="pencil" size={20} color="white" />
+                </TouchableOpacity>
 
-        {/* Info Cards */}
-        <View style={{ paddingHorizontal: 15 }}>
-          {sections.map((section) => (
-            <View key={section.key} style={styles.infoCard}>
-              <View style={{ flexDirection: "row", alignItems: "center", marginBottom: 6 }}>
-                {section.icon}
-                <Text style={styles.cardTitle}>{section.title}</Text>
-              </View>
-              <Text style={styles.cardText}>
-                {readMore[section.key]
-                  ? section.content
-                  : section.content.slice(0, 120) + (section.content.length > 120 ? "..." : "")}
-                {section.content.length > 120 && (
-                  <Text style={{ color: "#f28c28" }} onPress={() => toggleReadMore(section.key)}>
-                    {readMore[section.key] ? " Show Less" : " Read More"}
-                  </Text>
-                )}
-              </Text>
+                <TouchableOpacity style={styles.deleteBtn} onPress={handleDelete}>
+                  <Ionicons name="trash-outline" size={20} color="white" />
+                </TouchableOpacity>
+              </>
+            )}
+
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>{camp.title}</Text>
             </View>
-          ))}
+          </View>
 
-          {/* Reservation Button */}
-          <TouchableOpacity
-            style={styles.reserveButton}
-            onPress={() =>
-              router.push({
-                pathname: "/camps/addreservation",
-                params: { id: campId, title: camp.title, image: camp.image },
-              })
-            }
+          {/* CONTENT SECTIONS */}
+          <View style={styles.content}>
+            {highlightsList.length > 0 && (
+              <View style={styles.section}>
+                <Text style={styles.sectionHeader}>Highlights & Activities</Text>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.highlightsRow}>
+                  {highlightsList.map((item: string, index: number) => (
+                    <View key={index} style={styles.highlightChip}>
+                      <Text style={styles.highlightText}>{item}</Text>
+                    </View>
+                  ))}
+                </ScrollView>
+              </View>
+            )}
+
+            {/* Location */}
+            <View style={styles.card}>
+              <View style={styles.cardHeaderRow}>
+                <Ionicons name="location-outline" size={20} color="#FF9F1C" />
+                <Text style={styles.cardTitle}>Location & Info</Text>
+              </View>
+              <Text style={styles.cardBody}>{camp.description || "No description provided."}</Text>
+            </View>
+
+            {/* Categories */}
+            {categoryList.length > 0 && (
+              <View style={styles.card}>
+                <View style={styles.cardHeaderRow}>
+                  <Ionicons name="pricetags-outline" size={20} color="#FF9F1C" />
+                  <Text style={styles.cardTitle}>Categories</Text>
+                </View>
+                <View style={{ marginTop: 5 }}>
+                  {categoryList.map((cat: string, index: number) => (
+                    <View key={index} style={styles.categoryRow}>
+                      <Ionicons name="checkmark-circle-outline" size={16} color="#4CAF50" style={{ marginRight: 8 }} />
+                      <Text style={styles.categoryItemText}>{cat}</Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
+            )}
+
+            {/* Fees */}
+            <View style={styles.card}>
+              <View style={styles.cardHeaderRow}>
+                <Ionicons name="cash-outline" size={20} color="#FF9F1C" />
+                <Text style={styles.cardTitle}>Fees</Text>
+              </View>
+              <View style={styles.feeRow}>
+                <Text style={styles.feeLabel}>Entrance Fee:</Text>
+                <Text style={styles.feeValue}>
+                  {camp.entranceFee ? `₱${camp.entranceFee}` : 'Free / Not set'}
+                </Text>
+              </View>
+              <View style={[styles.feeRow, { borderBottomWidth: 0 }]}>
+                <Text style={styles.feeLabel}>Overnight Fee:</Text>
+                <Text style={styles.feeValue}>
+                  {camp.overnightFee ? `₱${camp.overnightFee} / night` : 'Not set'}
+                </Text>
+              </View>
+            </View>
+
+            {/* Directions */}
+            <View style={styles.card}>
+              <View style={styles.cardHeaderRow}>
+                <Ionicons name="walk-outline" size={20} color="#FF9F1C" />
+                <Text style={styles.cardTitle}>How to Get There</Text>
+              </View>
+              <Text style={styles.cardBody}>{camp.directions || "No directions provided."}</Text>
+            </View>
+
+            {/* Tips */}
+            <View style={styles.card}>
+              <View style={styles.cardHeaderRow}>
+                <Ionicons name="warning-outline" size={20} color="#FF9F1C" />
+                <Text style={styles.cardTitle}>Things to Consider</Text>
+              </View>
+              <Text style={styles.cardBody}>{camp.tips || "No tips provided."}</Text>
+            </View>
+          </View>
+        </ScrollView>
+
+        {/* FOOTER BUTTON */}
+        <View style={styles.footer}>
+          <TouchableOpacity 
+            style={styles.reserveBtn} 
+            onPress={() => router.push({ pathname: "/camps/addreservation", params: { id: camp._id } })}
           >
             <Text style={styles.reserveText}>Add Reservation</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
-    </View>
+
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f2f2f2" },
-  imageContainer: { width: "100%", height: 220, position: "relative" },
-  headerImage: { width: "100%", height: "100%", resizeMode: "cover", borderBottomLeftRadius: 20, borderBottomRightRadius: 20 },
-  backButton: { position: "absolute", top: 40, left: 20, backgroundColor: "rgba(0,0,0,0.5)", padding: 6, borderRadius: 50 },
-  titleOverlay: { position: "absolute", bottom: 15, left: 20, backgroundColor: "rgba(255,255,255,0.8)", paddingHorizontal: 12, paddingVertical: 6, borderRadius: 6 },
-  titleText: { fontSize: 20, fontWeight: "bold", color: "#000" },
-  sliderTitle: { fontWeight: "bold", color: "#f28c28", fontSize: 16, marginBottom: 10 },
-  highlightCard: { backgroundColor: "#f28c28", paddingHorizontal: 12, paddingVertical: 10, borderRadius: 20, marginRight: 10 },
-  highlightText: { color: "#fff", fontWeight: "bold", fontSize: 13 },
-  infoCard: { backgroundColor: "#fff", borderRadius: 16, padding: 15, marginBottom: 15, shadowColor: "#000", shadowOpacity: 0.1, shadowRadius: 5 },
-  cardTitle: { fontWeight: "bold", color: "#f28c28", fontSize: 15, marginLeft: 6 },
-  cardText: { fontSize: 14, color: "#333", lineHeight: 20 },
-  reserveButton: { backgroundColor: "#f28c28", paddingVertical: 16, borderRadius: 30, alignItems: "center", marginHorizontal: 50, marginTop: 20 },
-  reserveText: { color: "#fff", fontWeight: "bold", fontSize: 16 },
+  safeArea: {
+    flex: 1,
+    backgroundColor: 'white',
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  
+  imageContainer: { position: 'relative' },
+  headerImage: { width: '100%', height: 250 },
+  
+  backBtn: { position: 'absolute', top: 20, left: 20, backgroundColor: 'rgba(255,255,255,0.8)', padding: 8, borderRadius: 50 },
+  editBtn: { position: 'absolute', top: 20, right: 70, backgroundColor: '#007AFF', padding: 8, borderRadius: 50 },
+  deleteBtn: { position: 'absolute', top: 20, right: 20, backgroundColor: 'rgba(255, 0, 0, 0.7)', padding: 8, borderRadius: 50 },
+
+  titleContainer: { position: 'absolute', top: 190, left: 20, backgroundColor: 'rgba(255,255,255,0.9)', padding: 8, borderRadius: 8 },
+  title: { fontSize: 22, fontWeight: 'bold', color: '#000' },
+  content: { padding: 15 },
+  section: { marginBottom: 15 },
+  sectionHeader: { fontSize: 18, fontWeight: 'bold', color: '#FF9F1C', marginBottom: 10 },
+  highlightsRow: { flexDirection: 'row' },
+  highlightChip: { backgroundColor: '#FF9F1C', paddingHorizontal: 15, paddingVertical: 8, borderRadius: 20, marginRight: 10 },
+  highlightText: { color: '#fff', fontWeight: '600' },
+  
+  card: { backgroundColor: '#fff', borderRadius: 12, padding: 15, marginBottom: 15, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 3 },
+  cardHeaderRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 8 },
+  cardTitle: { fontSize: 16, fontWeight: 'bold', color: '#FF9F1C', marginLeft: 8 },
+  cardBody: { fontSize: 14, color: '#333', lineHeight: 20 },
+  
+  feeRow: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: '#eee' },
+  feeLabel: { fontSize: 14, color: '#666' },
+  feeValue: { fontSize: 15, fontWeight: 'bold', color: '#333' },
+
+  categoryRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 6 },
+  categoryItemText: { fontSize: 15, color: '#333' },
+
+  footer: { position: 'absolute', bottom: 0, width: '100%', padding: 20, backgroundColor: 'transparent' },
+  reserveBtn: { backgroundColor: '#FF9F1C', padding: 15, borderRadius: 30, alignItems: 'center', shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.2, shadowRadius: 4, elevation: 5 },
+  reserveText: { color: '#fff', fontSize: 18, fontWeight: 'bold' }
 });

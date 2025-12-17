@@ -4,8 +4,9 @@ import { useEffect } from "react";
 import { setCustomText, setCustomTextInput } from "react-native-global-props";
 import { View, ActivityIndicator } from "react-native";
 
-// Import your FavoritesProvider
+// Import your Context Providers
 import { FavoritesProvider } from "./context/FavoritesContext";
+import { UserProvider } from "./context/UserContext"; // ✅ 1. Import this
 
 export default function Layout() {
   const [fontsLoaded] = useFonts({
@@ -33,8 +34,11 @@ export default function Layout() {
   }
 
   return (
+    // ✅ 2. Wrap existing providers with UserProvider
     <FavoritesProvider>
-      <Stack screenOptions={{ headerShown: false }} />
+      <UserProvider>
+        <Stack screenOptions={{ headerShown: false }} />
+      </UserProvider>
     </FavoritesProvider>
   );
 }
